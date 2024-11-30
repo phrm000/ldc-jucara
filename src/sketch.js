@@ -22,16 +22,17 @@ function setup () {
         
     
     brush.noStroke();
-    brush.setHatch("HB", "#380533", 5);
-    brush.hatch(1, 0, {rand: 0, continuous: false, gradient: 0.1});
+    brush.setHatch("HB", "#1E031D", 4);
+    brush.hatch(1, 90, {rand: 0, continuous: false, gradient: 0.01});
     brush.bleed(0)
-    brush.fill("#380533", 100);
 
     brush.circle(width/2,height/2, 50, false);
-    brush.fill("#380533", 100);
-    brush.circle(width/2,height/2, 50, false);
+    fill("#380533");
+    circle(width/2,height/2, 100, false);
 
-    brush.fillTexture(1,0)
+
+
+    brush.fillTexture(1,1)
     
 
     
