@@ -1,0 +1,23 @@
+name: Hello World Workflow
+
+on:
+  push:
+    branches:
+      # - main # Typically actions were primarily related to deployment, so they were restricted to the main branch.
+      - '*' # Trigger on any branch to allow for broader testing and usage of the action.
+
+  pull_request:
+    branches:
+      - '*'  # Trigger on any branch
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run Hello World Action
+        uses: ./.github/actions/hello-world
+        with:
+          name: "Sérgio Rebelo"
