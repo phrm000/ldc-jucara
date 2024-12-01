@@ -26,9 +26,7 @@ function setup() {
   //Draw first
 
 
-
-
-  let circleR = 100;
+    let circleR = 100;
     let circleStartX = width / 2;
     let circleStartY = circleR - height / 3; //Ver depois
     let randomCircleFactor = random(0.95,1.05);
@@ -58,8 +56,8 @@ function setup() {
     let colorB = map(randomColor, 1, 100, 26, 26);
 
   
-    brush.setHatch("HB", [colorR, colorG, colorB], 1 * circleR/100);
-    brush.hatch(0.4, random(0, 0.3 * Math.PI), {
+    brush.setHatch("charcoal", [colorR, colorG, colorB], 0.8  * circleR/100);
+    brush.hatch(1, random(0, 0.3 * Math.PI), {
         rand: 0,
         continuous: false,
         gradient: 0,
@@ -79,16 +77,15 @@ function setup() {
 
 
     
-    while (i < 3) {
+    while (i < 2) {
        randomColor = random(1, 100);
        colorR = map(randomColor, 1, 100, 168, 209);
        colorG = map(randomColor, 1, 100, 27, 69);
        colorB = map(randomColor, 1, 100, 26, 26);
 
-      console.log([colorR, colorG, colorB] )
   
-      brush.setHatch("hatch_brush", [colorR, colorG, colorB], random(2,4) * circleR/100 * i/2);
-      brush.hatch(1, random(0, 0.3 * Math.PI), {
+      brush.setHatch("hatch_brush", [colorR, colorG, colorB], random(8,12) * circleR/100 * i);
+      brush.hatch(2, random(0, 0.3 * Math.PI), {
           rand: 0,
           continuous: false,
           gradient: 0.2,
