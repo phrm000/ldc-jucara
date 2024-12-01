@@ -13,7 +13,7 @@ const C = {
         }
     },
     setSize(w,h,p,css) {
-        this.width = w, this.height = h, this.pD = p, this.css = css;
+        this.width = 500, this.height = 300, this.pD = p, this.css = css;
     },
     createCanvas() {
         this.main = createCanvas(this.width,this.height,WEBGL), pixelDensity(this.pD), this.main.id(this.css), this.resize();

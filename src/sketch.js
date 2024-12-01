@@ -1,6 +1,7 @@
 //////////////////////////////////////////////////
 // P5 FUNCTIONS
 
+
 function preload() {
   // If you are going to use custom image brush tips, include this in preload!
   brush.preload();
@@ -12,8 +13,12 @@ let i = 0;
 
 
 function setup() {
+    
+
+
+    
   C.createCanvas();
-  background("#0a0a0a");
+  background("#D6DDD0");
   angleMode(RADIANS);
 
   translate(-width / 2, -height / 2);
@@ -26,40 +31,72 @@ function setup() {
   let circleR = 100;
     let circleStartX = width / 2;
     let circleStartY = circleR - height / 3; //Ver depois
-    let randomCircleFactor = random(0.5,1.4);
-  
+    let randomCircleFactor = random(0.95,1.05);
     
+      
     let point1X = randomCircleFactor * circleStartX;
+    randomCircleFactor = random(0.95,1.05);
     let point1Y = randomCircleFactor * circleStartY;
+    randomCircleFactor = random(0.95,1.05);
     let point2X = randomCircleFactor * circleStartX + circleR;
+    randomCircleFactor = random(0.95,1.05);
     let point2Y = randomCircleFactor * circleStartY + circleR;
+    randomCircleFactor = random(0.95,1.05);
     let point3X = randomCircleFactor * circleStartX;
+    randomCircleFactor = random(0.95,1.05);
     let point3Y = randomCircleFactor * circleStartY + circleR * 2;
+    randomCircleFactor = random(0.95,1.05);
     let point4X = randomCircleFactor * circleStartX - circleR;
+    randomCircleFactor = random(0.95,1.05);
     let point4Y = randomCircleFactor * circleStartY + circleR;
   
   
+
+    let randomColor = random(1, 100);
+    let colorR = map(randomColor, 1, 100, 168, 209);
+    let colorG = map(randomColor, 1, 100, 27, 69);
+    let colorB = map(randomColor, 1, 100, 26, 26);
+
   
+    brush.setHatch("HB", [colorR, colorG, colorB], 1 * circleR/100);
+    brush.hatch(0.4, random(0, 0.3 * Math.PI), {
+        rand: 0,
+        continuous: false,
+        gradient: 0,
+      });
+
+    brush.fillTexture(1,0);
+    brush.bleed(0);
+
+    brush.noStroke();
+    brush.beginShape(1);
+    brush.vertex(point1X, point1Y);
+    brush.vertex(point2X, point2Y);
+    brush.vertex(point3X, point3Y);
+    brush.vertex(point4X, point4Y);
+    brush.endShape(CLOSE);
+
+
+
     
-    while (i < 2) {
-      let randomColor = random(1, 100);
-      let colorR = map(randomColor, 1, 100, 168, 209);
-      let colorG = map(randomColor, 1, 100, 27, 69);
-      let colorB = map(randomColor, 1, 100, 26, 26);
+    while (i < 3) {
+       randomColor = random(1, 100);
+       colorR = map(randomColor, 1, 100, 168, 209);
+       colorG = map(randomColor, 1, 100, 27, 69);
+       colorB = map(randomColor, 1, 100, 26, 26);
 
       console.log([colorR, colorG, colorB] )
   
-      brush.setHatch("hatch_brush", [colorR, colorG, colorB], random(1,4) * circleR/100 * i/2);
+      brush.setHatch("hatch_brush", [colorR, colorG, colorB], random(2,4) * circleR/100 * i/2);
       brush.hatch(1, random(0, 0.3 * Math.PI), {
           rand: 0,
           continuous: false,
           gradient: 0.2,
         });
-  
-    // //   brush.fill([colorR,colorG,colorB], 100);
-    //   brush.fillTexture(1,0);
-    //   brush.bleed(0);
-      
+
+      brush.fillTexture(1,0);
+      brush.bleed(0);
+
       brush.noStroke();
       brush.beginShape(1);
       brush.vertex(point1X, point1Y);
