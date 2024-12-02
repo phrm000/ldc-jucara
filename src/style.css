@@ -3,6 +3,21 @@ html, body {
     padding: 0;
     overflow: hidden !important;
   }
+
+  #overlay-effect {
+    width: 100vw;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: 9999;
+    background-image: url(../img/overlay.png);
+    mix-blend-mode: soft-light;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  
   canvas {
     display: block;
   }

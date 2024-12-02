@@ -1,15 +1,13 @@
 //////////////////////////////////////////////////
 // P5 FUNCTIONS
 
-const { fruit } = require("p5.brush");
+let fruitdarkestFillColor;
+let fruitLightestFillColor;
 
 function preload() {
   // If you are going to use custom image brush tips, include this in preload!
   brush.preload();
 }
-
-let palette = ["#002185", "#fcd300", "#ff402", "#6b9404"];
-let i = 0;
 
 function setup() {
   C.createCanvas();
@@ -18,25 +16,53 @@ function setup() {
 }
 
 function drawFruit(fruitR, fruitStartX, fruitStartY) {
-  let fruitCoordinates = randomfruitCoordinates(
+  //Colorize
+  let stage = random(0, 100);
+  if (stage > 33) {
+    fruitdarkestFillColor = "#19011B";
+    fruitLightestFillColor = "#310314";
+  } else if (stage > 16) {
+    fruitDarkestFillColor = "#39230F";
+    fruitLightestFillColor = "#432A16";
+  } else {
+    fruitdarkestFillColor = "#19310A";
+    fruitLightestFillColor = "#234B13";
+  }
+  fruitdarkestFillColorRGB = hexToRgb(fruitdarkestFillColor);
+  fruitLightestFillColorRGB = hexToRgb(fruitLightestFillColor);
+
+  //Randomize coordinates
+  let fruitCoordinates = randomCircleCoordinates(
     fruitR,
     fruitStartX,
     fruitStartY
   );
-  console.log(fruitCoordinates);
-  setHatchFill(fruitR);
-  drawFruitContainer(fruitCoordinates);
 
-  for (let i = 0; i < 3; i++) {
-    console.log(i);
-    setHatchTexture(fruitR);
-    drawFruitContainer(fruitCoordinates);
+  //Base color
+  setHatchFill(fruitR, fruitLightestFillColorRGB, fruitdarkestFillColorRGB);
+  //Base container
+  drawCircleContainer(fruitCoordinates);
+
+  for (let i = 0; i < 4; i++) {
+    //Adding texture
+    setHatchTexture(
+      fruitR,
+      fruitLightestFillColorRGB,
+      fruitdarkestFillColorRGB
+    );
+    //Base container
+    drawCircleContainer(fruitCoordinates);
   }
-
-  drawFruitStem(fruitCoordinates, fruitR);
+  //Fruit stem
+  drawFruitStem(
+    fruitCoordinates,
+    fruitR,
+    fruitLightestFillColorRGB,
+    fruitdarkestFillColorRGB
+  );
 }
 
-function drawFruitStem(fruitCoordinates, shapeSize) {
+function drawFruitStem(fruitCoordinates, shapeSize, lightRGB, darkRGB) {
   let avgX =
     (fruitCoordinates[0] +
       fruitCoordinates[2] +
@@ -50,12 +76,12 @@ function drawFruitStem(fruitCoordinates, shapeSize) {
       fruitCoordinates[7]) /
     4;
 
-  let randomColor = random(1, 100);
-  let colorR = map(randomColor, 1, 100, 84, 25);
-  let colorG = map(randomColor, 1, 100, 1, 16);
-  let colorB = map(randomColor, 1, 100, 41, 27);
+  let randomColor = random(50, 100);
+  let colorR = map(randomColor, 1, 100, lightRGB.r, darkRGB.r);
+  let colorG = map(randomColor, 1, 100, lightRGB.g, darkRGB.g);
+  let colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
 
-  brush.set("rotring", "#19011B", shapeSize / 5);
+  brush.set("pen", [colorR, colorG, colorB], shapeSize / 5);
   let points = [
     [30, 70],
     [85, 20],
@@ -74,7 +100,7 @@ function drawFruitStem(fruitCoordinates, shapeSize) {
   brush.spline(points, 0.5);
 }
 
-function randomfruitCoordinates(fruitR, fruitStartX, fruitStartY) {
+function randomCircleCoordinates(fruitR, fruitStartX, fruitStartY) {
   let randomfruitFactor = random(0.95, 1.05);
   let point1X = randomfruitFactor * fruitStartX;
   randomfruitFactor = random(0.95, 1.05);
@@ -105,7 +131,7 @@ function randomfruitCoordinates(fruitR, fruitStartX, fruitStartY) {
   ];
 }
 
-function drawFruitContainer(fruitCoordinates) {
+function drawCircleContainer(fruitCoordinates) {
   brush.noStroke();
   brush.beginShape(1);
   brush.vertex(fruitCoordinates[0], fruitCoordinates[1]);
@@ -115,13 +141,14 @@ function drawFruitContainer(fruitCoordinates) {
   brush.endShape(CLOSE);
 }
 
-function setHatchFill(shapeSize) {
+function setHatchFill(shapeSize, lightRGB, darkRGB) {
   let randomColor = random(1, 100);
-  let colorR = map(randomColor, 1, 100, 84, 25);
-  let colorG = map(randomColor, 1, 100, 1, 16);
-  let colorB = map(randomColor, 1, 100, 41, 27);
 
-  brush.setHatch("charcoal", [colorR, colorG, colorB], (1.2 * shapeSize) / 100);
+  let colorR = map(randomColor, 1, 100, lightRGB.r, darkRGB.r);
+  let colorG = map(randomColor, 1, 100, lightRGB.g, darkRGB.g);
+  let colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
+
+  brush.setHatch("charcoal", [colorR, colorG, colorB], (1.5 * shapeSize) / 100);
   brush.hatch(1, random(0, 0.3 * Math.PI), {
     rand: 0,
     continuous: false,
@@ -129,11 +156,11 @@ function setHatchFill(shapeSize) {
   });
 }
 
-function setHatchTexture(shapeSize) {
+function setHatchTexture(shapeSize, lightRGB, darkRGB) {
   let randomColor = random(1, 100);
-  let colorR = map(randomColor, 1, 100, 84, 25);
-  let colorG = map(randomColor, 1, 100, 1, 16);
-  let colorB = map(randomColor, 1, 100, 41, 27);
+  let colorR = map(randomColor, 1, 100, lightRGB.r, darkRGB.r);
+  let colorG = map(randomColor, 1, 100, lightRGB.g, darkRGB.g);
+  let colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
 
   brush.setHatch(
     "hatch_brush",
@@ -147,6 +174,18 @@ function setHatchTexture(shapeSize) {
   });
 }
 
+function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
+}
+
+//###DRAW
 function draw() {
   translate(-width / 2, -height / 2);
   let radius = 50;
