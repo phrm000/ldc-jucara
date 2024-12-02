@@ -13,6 +13,17 @@ function setup() {
   C.createCanvas();
   background("#D6DDD0");
   angleMode(RADIANS);
+
+
+  
+  // translate(-width / 2, -height / 2);
+  // let radius = 80;
+
+  // let startX = -width / 2;
+  // let startY = height /5;
+  
+  // drawFruit(radius, -startX, startY);
+  
 }
 
 function drawFruit(fruitR, fruitStartX, fruitStartY) {
@@ -28,7 +39,7 @@ function drawFruit(fruitR, fruitStartX, fruitStartY) {
     fruitdarkestFillColor = "#19310A";
     fruitLightestFillColor = "#234B13";
   }
-  fruitdarkestFillColorRGB = hexToRgb(fruitdarkestFillColor);
+  fruitDarkestFillColorRGB = hexToRgb(fruitdarkestFillColor);
   fruitLightestFillColorRGB = hexToRgb(fruitLightestFillColor);
 
   //Randomize coordinates
@@ -39,7 +50,7 @@ function drawFruit(fruitR, fruitStartX, fruitStartY) {
   );
 
   //Base color
-  setHatchFill(fruitR, fruitLightestFillColorRGB, fruitdarkestFillColorRGB);
+  setHatchFill(fruitR, fruitLightestFillColorRGB, fruitDarkestFillColorRGB);
   //Base container
   drawCircleContainer(fruitCoordinates);
 
@@ -48,7 +59,7 @@ function drawFruit(fruitR, fruitStartX, fruitStartY) {
     setHatchTexture(
       fruitR,
       fruitLightestFillColorRGB,
-      fruitdarkestFillColorRGB
+      fruitDarkestFillColorRGB
     );
     //Base container
     drawCircleContainer(fruitCoordinates);
@@ -58,7 +69,7 @@ function drawFruit(fruitR, fruitStartX, fruitStartY) {
     fruitCoordinates,
     fruitR,
     fruitLightestFillColorRGB,
-    fruitdarkestFillColorRGB
+    fruitDarkestFillColorRGB
   );
 }
 
@@ -100,24 +111,24 @@ function drawFruitStem(fruitCoordinates, shapeSize, lightRGB, darkRGB) {
   brush.spline(points, 0.5);
 }
 
-function randomCircleCoordinates(fruitR, fruitStartX, fruitStartY) {
-  let randomfruitFactor = random(0.95, 1.05);
-  let point1X = randomfruitFactor * fruitStartX;
-  randomfruitFactor = random(0.95, 1.05);
-  let point1Y = randomfruitFactor * fruitStartY;
-  randomfruitFactor = random(0.95, 1.05);
-  let point2X = randomfruitFactor * fruitStartX + randomfruitFactor * fruitR;
-  randomfruitFactor = random(0.95, 1.05);
-  let point2Y = randomfruitFactor * fruitStartY + randomfruitFactor * fruitR;
-  randomfruitFactor = random(0.95, 1.05);
-  let point3X = randomfruitFactor * fruitStartX;
-  randomfruitFactor = random(0.95, 1.05);
+function randomCircleCoordinates(circleR, circleStartX, circleStartY) {
+  let randomCircleFactor = random(0.95, 1.05);
+  let point1X = randomCircleFactor * circleStartX;
+  randomCircleFactor = random(0.95, 1.05);
+  let point1Y = randomCircleFactor * circleStartY;
+  randomCircleFactor = random(0.95, 1.05);
+  let point2X = randomCircleFactor * circleStartX + randomCircleFactor * circleR;
+  randomCircleFactor = random(0.95, 1.05);
+  let point2Y = randomCircleFactor * circleStartY + randomCircleFactor * circleR;
+  randomCircleFactor = random(0.95, 1.05);
+  let point3X = randomCircleFactor * circleStartX;
+  randomCircleFactor = random(0.95, 1.05);
   let point3Y =
-    randomfruitFactor * fruitStartY + randomfruitFactor * fruitR * 2;
-  randomfruitFactor = random(0.95, 1.05);
-  let point4X = randomfruitFactor * fruitStartX - randomfruitFactor * fruitR;
-  randomfruitFactor = random(0.95, 1.05);
-  let point4Y = randomfruitFactor * fruitStartY + randomfruitFactor * fruitR;
+    randomCircleFactor * circleStartY + randomCircleFactor * circleR * 2;
+  randomCircleFactor = random(0.95, 1.05);
+  let point4X = randomCircleFactor * circleStartX - randomCircleFactor * circleR;
+  randomCircleFactor = random(0.95, 1.05);
+  let point4Y = randomCircleFactor * circleStartY + randomCircleFactor * circleR;
 
   return [
     point1X,
@@ -210,3 +221,122 @@ function draw() {
     drawFruit(radius, x, y);
   }
 }
+
+
+
+
+function drawTucano(tucanoR, tucanoStartX, tucanoStartY) {
+  //Colorize
+
+  tucanodarkestFillColor = "#901010";
+  tucanoLightestFillColor = "#C3810D";
+
+  tucanoDarkestFillColorRGB = hexToRgb(tucanodarkestFillColor);
+  tucanoLightestFillColorRGB = hexToRgb(tucanoLightestFillColor);
+
+  //Randomize coordinates
+  let tucanoCoordinates = randomCircleCoordinates(
+    tucanoR,
+    tucanoStartX,
+    tucanoStartY
+  );
+
+  //Base color
+  setHatchFill(tucanoR, tucanoLightestFillColorRGB, tucanoDarkestFillColorRGB);
+  //Base container
+  drawCircleContainer(tucanoCoordinates);
+
+  for (let i = 0; i < 4; i++) {
+    //Adding texture
+    setHatchTexture(
+      tucanoR,
+      tucanoLightestFillColorRGB,
+      tucanoDarkestFillColorRGB
+    );
+    //Base container
+    drawCircleContainer(tucanoCoordinates);
+  }
+
+
+  drawTucanBeak(
+    tucanoCoordinates,
+    tucanoR,
+    tucanoLightestFillColorRGB,
+    tucanoDarkestFillColorRGB
+  );
+
+
+  //draw Beak
+  //draw circle eye
+  //draw circle eyeball
+  //draw wings  
+
+}
+
+
+function drawTucanBeak(tucanoCoordinates, tucanoR, lightRGB, darkRGB) {
+  let avgX =
+    (tucanoCoordinates[0] +
+      tucanoCoordinates[2] +
+      tucanoCoordinates[4] +
+      tucanoCoordinates[6]) /
+    4;
+  let avgY =
+    (tucanoCoordinates[1] +
+      tucanoCoordinates[3] +
+      tucanoCoordinates[5] +
+      tucanoCoordinates[7]) /
+    4;
+
+    
+
+    brush.noStroke();       // Disable stroke for this shape
+  
+    let points = [
+      [60, 295],      // Sharp
+      [0, 238.19],    // Curve
+      [135, 124.56],  // Curve
+      [185, 289.32],  // Sharp
+      [110, 272.96],  // Curve
+      [35, 287.5]     // Sharp
+    ];
+  
+    // Interpolation factor (number of points between main vertices)
+    let interpolationFactor = 10;
+  
+    // Generate curve points
+    let interpolatedPoints = generateInterpolatedPoints(points, interpolationFactor);
+  
+    // Begin custom shape
+    brush.beginShape();
+  
+    // Use interpolated points for smooth curves
+    for (let pt of interpolatedPoints) {
+      brush.vertex(pt[0], pt[1]);
+    }
+  
+    // Close and fill the shape
+    brush.endShape(CLOSE);
+  }
+  
+
+  function generateInterpolatedPoints(points, numSegments) {
+    let newPoints = [];
+    for (let i = 0; i < points.length; i++) {
+      let p0 = points[i];
+      let p1 = points[(i + 1) % points.length]; // Loop back at the end
+  
+      if (i === 0 || i === 3 || i === 5) {
+        // Sharp point, just add the original
+        newPoints.push(p0);
+      } else {
+        // Interpolate between p0 and p1 for smooth curves
+        for (let t = 0; t <= 1; t += 1 / numSegments) {
+          let x = lerp(p0[0], p1[0], t);
+          let y = lerp(p0[1], p1[1], t);
+          newPoints.push([x, y]);
+        }
+      }
+    }
+    return newPoints;
+  }

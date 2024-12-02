@@ -13,14 +13,14 @@ const C = {
         }
     },
     setSize(w,h,p,css) {
-        this.width = 500, this.height = 300, this.pD = p, this.css = css;
+        this.width = w, this.height = h, this.pD = p, this.css = css;
     },
     createCanvas() {
         this.main = createCanvas(this.width,this.height,WEBGL), pixelDensity(this.pD), this.main.id(this.css), this.resize();
     }
 };
 
-C.setSize(250,250,8,'mainCanvas')
+C.setSize(window.innerWidth/3,window.innerHeight/3,3,'mainCanvas')
 
 function windowResized () {
     C.resize();
