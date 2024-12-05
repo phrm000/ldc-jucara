@@ -4,6 +4,10 @@
 let fruitdarkestFillColor;
 let fruitLightestFillColor;
 
+
+//variaveis globais para variabilidade e limites
+//desenhar branches 
+
 function preload() {
   // If you are going to use custom image brush tips, include this in preload!
   brush.preload();
@@ -49,10 +53,12 @@ function drawFruit(fruitR, fruitStartX, fruitStartY) {
     fruitStartY
   );
 
+  for (let j = 0; j < 3; j++) {
   //Base color
   setHatchFill(fruitR, fruitLightestFillColorRGB, fruitDarkestFillColorRGB);
   //Base container
   drawCircleContainer(fruitCoordinates);
+  }
 
   for (let i = 0; i < 4; i++) {
     //Adding texture
@@ -150,6 +156,7 @@ function drawCircleContainer(fruitCoordinates) {
   brush.vertex(fruitCoordinates[4], fruitCoordinates[5]);
   brush.vertex(fruitCoordinates[6], fruitCoordinates[7]);
   brush.endShape(CLOSE);
+  
 }
 
 function setHatchFill(shapeSize, lightRGB, darkRGB) {
@@ -159,7 +166,8 @@ function setHatchFill(shapeSize, lightRGB, darkRGB) {
   let colorG = map(randomColor, 1, 100, lightRGB.g, darkRGB.g);
   let colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
 
-  brush.setHatch("charcoal", [colorR, colorG, colorB], (1.5 * shapeSize) / 100);
+  
+  brush.setHatch("charcoal", [colorR, colorG, colorB], (0.7 * shapeSize) / 100);
   brush.hatch(1, random(0, 0.3 * Math.PI), {
     rand: 0,
     continuous: false,
@@ -196,31 +204,6 @@ function hexToRgb(hex) {
     : null;
 }
 
-//###DRAW
-function draw() {
-  translate(-width / 2, -height / 2);
-  let radius = 50;
-
-  let startX = -width / 2;
-  let startY = radius - height / 3;
-
-  let numFruits = width / radius;
-  let curveHeight = height;
-  let curveWidth = width / 3;
-
-  if (frameCount <= numFruits) {
-    let t = (frameCount - 1) / (numFruits - 1);
-    let x = startX - curveWidth * cos(t * PI);
-    let y = startY + curveHeight * t; // Linear interpolation for y
-    drawFruit(radius, x, y);
-  } else if (frameCount <= numFruits * 20) {
-    let curveIndex = Math.floor((frameCount - 1) / numFruits);
-    let t = ((frameCount - 1) % numFruits) / (numFruits - 1);
-    let x = startX - curveWidth * cos(t * PI) + curveIndex * (width * 0.1);
-    let y = startY + curveHeight * t; // Linear interpolation for y
-    drawFruit(radius, x, y);
-  }
-}
 
 
 
@@ -288,55 +271,66 @@ function drawTucanBeak(tucanoCoordinates, tucanoR, lightRGB, darkRGB) {
       tucanoCoordinates[7]) /
     4;
 
+  brush.noStroke();
+  
+  let centerX = avgX;
+  let centerY = avgY;
+
+  brush.fill("brown",100)
+  brush.beginShape();
+  brush.vertex(centerX, centerY);
+  
+  let startAngle = -PI / 3;
+  let endAngle = startAngle + (2 * PI) / 3;
+  let numPoints = 30;
+  
+  for (let i = 0; i <= numPoints; i++) {
+    let angle = lerp(startAngle, endAngle, i / numPoints);
+    let x = centerX + tucanoR * cos(angle) * 0.8;
+    let y = centerY + tucanoR * sin(angle)* 0.8;
+    brush.vertex(x, y);
+  }
+  
+  brush.vertex(centerX, centerY);
+  brush.endShape(CLOSE);
+}
+
+
+
+
+
+
+//###DRAW
+function draw() {
+  translate(-width / 2, -height / 2);
+  let radius = 50;
+
+  let startX = -width / 2;
+  let startY = radius - height / 3;
+
+  let numFruits = width / radius;
+  let curveHeight = height;
+  let curveWidth = width / 3;
+  let angleOffset = -10 // de 0 à 10
+
+let blankSpaceChance = 1; //1 À 9
+let curveSpacing = 0.05; // de 0.05 à 10
+
+if (random(1,10) > blankSpaceChance) {
+  if (frameCount <= numFruits) {
+    let t = (frameCount - 1) / (numFruits - 1);
+    let x = startX - curveWidth * cos(t * PI + angleOffset);
+    let y = startY + curveHeight * t; // Linear interpolation for y
+    drawFruit(radius, x, y);
+  } else if (frameCount <= numFruits * 20) {
+    let curveIndex = Math.floor((frameCount - 1) / numFruits);
+    let t = ((frameCount - 1) % numFruits) / (numFruits - 1);
+    let x = startX - curveWidth * cos(t * PI + angleOffset) + curveIndex * (width * curveSpacing);
+    let y = startY + curveHeight * t; // Linear interpolation for y
+    drawFruit(radius, x, y);
     
-
-    brush.noStroke();       // Disable stroke for this shape
-  
-    let points = [
-      [60, 295],      // Sharp
-      [0, 238.19],    // Curve
-      [135, 124.56],  // Curve
-      [185, 289.32],  // Sharp
-      [110, 272.96],  // Curve
-      [35, 287.5]     // Sharp
-    ];
-  
-    // Interpolation factor (number of points between main vertices)
-    let interpolationFactor = 10;
-  
-    // Generate curve points
-    let interpolatedPoints = generateInterpolatedPoints(points, interpolationFactor);
-  
-    // Begin custom shape
-    brush.beginShape();
-  
-    // Use interpolated points for smooth curves
-    for (let pt of interpolatedPoints) {
-      brush.vertex(pt[0], pt[1]);
-    }
-  
-    // Close and fill the shape
-    brush.endShape(CLOSE);
   }
-  
 
-  function generateInterpolatedPoints(points, numSegments) {
-    let newPoints = [];
-    for (let i = 0; i < points.length; i++) {
-      let p0 = points[i];
-      let p1 = points[(i + 1) % points.length]; // Loop back at the end
-  
-      if (i === 0 || i === 3 || i === 5) {
-        // Sharp point, just add the original
-        newPoints.push(p0);
-      } else {
-        // Interpolate between p0 and p1 for smooth curves
-        for (let t = 0; t <= 1; t += 1 / numSegments) {
-          let x = lerp(p0[0], p1[0], t);
-          let y = lerp(p0[1], p1[1], t);
-          newPoints.push([x, y]);
-        }
-      }
-    }
-    return newPoints;
-  }
+
+}
+}
