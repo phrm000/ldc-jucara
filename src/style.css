@@ -1,26 +1,123 @@
+
+
+
+:root{
+  --main-bg-color: #FCFFFD;
+  --secondary-bg-color: #E8E8EE;
+  --hoverSecondary-bg-color: #c3c3cf;
+  --accent-purple: #381233;
+  --secondary-purple: #978795;
+}
+
 html, body {
     margin: 0;
     padding: 0;
     overflow: hidden !important;
-  }
-
-  #overlay-effect {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     width: 100vw;
     height: 100vh;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    z-index: 9999;
-    background-image: url(../img/overlay.png);
-    mix-blend-mode: soft-light;
-    position: fixed;
-    top: 0;
-    left: 0;
   }
-  
+
+
+.inputs-aside{
+  display: flex;
+  width: 544px;
+  height: 100%;
+  padding: 48px 32px 24px 32px;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  background-color: var(--main-bg-color);
+  font-family: "Inter", sans-serif;
+  gap: 32px;
+} 
+
+.inputLabel-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
+  width: 100%;
+}
+
+label{
+  font-size: 16px;
+  font-weight: bold;
+}
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: var(--secondary-bg-color);
+  outline: none;
+  opacity: 0.8;
+  transition: .2s;
+
+}
+
+
+.slider:hover {
+  background: var(--hoverSecondary-bg-color);
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 99999999px;
+  background: var(--accent-purple);
+  cursor: pointer;
+
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 99999999px;
+  background:  var(--accent-purple);
+  cursor: pointer;
+
+}
+
+
+
+.sliderDescription{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: stretch;
+  color: var(--secondary-purple);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex: 1 0 0;
+  align-self: stretch;
+  background: url(img/canvas-bg.png) lightgray 50% / cover no-repeat;
+}
+
+
   canvas {
     display: block;
+    height: fit-content !important;
+    box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.25);
+
   }
+
+
+
+
 
 
   

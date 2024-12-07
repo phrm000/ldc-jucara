@@ -4,9 +4,12 @@
 let fruitdarkestFillColor;
 let fruitLightestFillColor;
 
+var fruitRadiusSlider = document.getElementById("fruitRadiusSlider");
+var blankSpaceChanceSlider = document.getElementById("blankSpaceChanceSlider");
+var angleOffsetSlider = document.getElementById("angleOffsetSlider");
+var curveSpacingSlider = document.getElementById("curveSpacingSlider");
 
-//variaveis globais para variabilidade e limites
-//desenhar branches 
+
 
 function preload() {
   // If you are going to use custom image brush tips, include this in preload!
@@ -15,62 +18,46 @@ function preload() {
 
 function setup() {
   C.createCanvas();
-  background("#D6DDD0");
+  background("#EAEADC");
   angleMode(RADIANS);
-
-
-  
-  // translate(-width / 2, -height / 2);
-  // let radius = 80;
-
-  // let startX = -width / 2;
-  // let startY = height /5;
-  
-  // drawFruit(radius, -startX, startY);
-  
 }
 
 function drawFruit(fruitR, fruitStartX, fruitStartY) {
-  //Colorize
-  let stage = random(0, 100);
-  if (stage > 33) {
-    fruitdarkestFillColor = "#19011B";
-    fruitLightestFillColor = "#310314";
-  } else if (stage > 16) {
-    fruitDarkestFillColor = "#39230F";
-    fruitLightestFillColor = "#432A16";
-  } else {
-    fruitdarkestFillColor = "#19310A";
-    fruitLightestFillColor = "#234B13";
-  }
-  fruitDarkestFillColorRGB = hexToRgb(fruitdarkestFillColor);
-  fruitLightestFillColorRGB = hexToRgb(fruitLightestFillColor);
+  // Colorize
+  const stage = random(0, 100);
+  const colorSet =
+    stage > 33
+      ? { darkest: "#19011B", lightest: "#310314" }
+      : stage > 16
+      ? { darkest: "#39230F", lightest: "#432A16" }
+      : { darkest: "#19310A", lightest: "#234B13" };
 
-  //Randomize coordinates
-  let fruitCoordinates = randomCircleCoordinates(
+  const fruitDarkestFillColorRGB = hexToRgbCached(colorSet.darkest);
+  const fruitLightestFillColorRGB = hexToRgbCached(colorSet.lightest);
+
+  // Randomize coordinates
+  const fruitCoordinates = randomCircleCoordinates(
     fruitR,
     fruitStartX,
     fruitStartY
   );
 
-  for (let j = 0; j < 3; j++) {
-  //Base color
-  setHatchFill(fruitR, fruitLightestFillColorRGB, fruitDarkestFillColorRGB);
-  //Base container
-  drawCircleContainer(fruitCoordinates);
+  // Draw base and texture
+  for (let j = 0; j < 2; j++) {
+    setHatchFill(fruitR, fruitLightestFillColorRGB, fruitDarkestFillColorRGB);
+    drawCircleContainer(fruitCoordinates);
   }
 
-  for (let i = 0; i < 4; i++) {
-    //Adding texture
+  for (let i = 0; i < 1; i++) {
     setHatchTexture(
       fruitR,
       fruitLightestFillColorRGB,
       fruitDarkestFillColorRGB
     );
-    //Base container
     drawCircleContainer(fruitCoordinates);
   }
-  //Fruit stem
+
+  // Fruit stem
   drawFruitStem(
     fruitCoordinates,
     fruitR,
@@ -80,72 +67,49 @@ function drawFruit(fruitR, fruitStartX, fruitStartY) {
 }
 
 function drawFruitStem(fruitCoordinates, shapeSize, lightRGB, darkRGB) {
-  let avgX =
+  const avgX =
     (fruitCoordinates[0] +
       fruitCoordinates[2] +
       fruitCoordinates[4] +
       fruitCoordinates[6]) /
     4;
-  let avgY =
+  const avgY =
     (fruitCoordinates[1] +
       fruitCoordinates[3] +
       fruitCoordinates[5] +
       fruitCoordinates[7]) /
     4;
 
-  let randomColor = random(50, 100);
-  let colorR = map(randomColor, 1, 100, lightRGB.r, darkRGB.r);
-  let colorG = map(randomColor, 1, 100, lightRGB.g, darkRGB.g);
-  let colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
+  const randomColor = random(75, 100);
+  const colorR = map(randomColor, 1, 100, lightRGB.r, darkRGB.r);
+  const colorG = map(randomColor, 1, 100, lightRGB.g, darkRGB.g);
+  const colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
 
-  brush.set("pen", [colorR, colorG, colorB], shapeSize / 5);
-  let points = [
-    [30, 70],
-    [85, 20],
-    [130, 100],
-    [180, 50],
-  ];
-  let angleStep = TWO_PI / 10;
-  let radius = shapeSize / 10;
-  points = [];
+  brush.set("charcoal", [colorR, colorG, colorB], shapeSize / 2);
+  const points = [];
+  const angleStep = TWO_PI / 10;
+  const radius = shapeSize / 10;
+
   for (let angle = 0; angle < TWO_PI; angle += angleStep) {
-    let x = avgX + cos(angle) * radius + random(-10, 10);
-    let y = avgY + sin(angle) * radius + random(-10, 10);
+    const x = avgX + cos(angle) * radius + random(-10, 10);
+    const y = avgY + sin(angle) * radius + random(-10, 10);
     points.push([x, y]);
   }
-  // Create a spline curve with a specified curvature
   brush.spline(points, 0.5);
 }
 
 function randomCircleCoordinates(circleR, circleStartX, circleStartY) {
-  let randomCircleFactor = random(0.95, 1.05);
-  let point1X = randomCircleFactor * circleStartX;
-  randomCircleFactor = random(0.95, 1.05);
-  let point1Y = randomCircleFactor * circleStartY;
-  randomCircleFactor = random(0.95, 1.05);
-  let point2X = randomCircleFactor * circleStartX + randomCircleFactor * circleR;
-  randomCircleFactor = random(0.95, 1.05);
-  let point2Y = randomCircleFactor * circleStartY + randomCircleFactor * circleR;
-  randomCircleFactor = random(0.95, 1.05);
-  let point3X = randomCircleFactor * circleStartX;
-  randomCircleFactor = random(0.95, 1.05);
-  let point3Y =
-    randomCircleFactor * circleStartY + randomCircleFactor * circleR * 2;
-  randomCircleFactor = random(0.95, 1.05);
-  let point4X = randomCircleFactor * circleStartX - randomCircleFactor * circleR;
-  randomCircleFactor = random(0.95, 1.05);
-  let point4Y = randomCircleFactor * circleStartY + randomCircleFactor * circleR;
+  const randomCircleFactor = () => random(0.95, 1.05);
+  const point1X = randomCircleFactor() * circleStartX;
+  const point1Y = randomCircleFactor() * circleStartY;
+  const point2X = randomCircleFactor() * circleStartX + randomCircleFactor() * circleR;
+  const point2Y = randomCircleFactor() * circleStartY + randomCircleFactor() * circleR;
+  const point3X = randomCircleFactor() * circleStartX;
+  const point3Y = randomCircleFactor() * circleStartY + randomCircleFactor() * circleR * 2;
+  const point4X = randomCircleFactor() * circleStartX - randomCircleFactor() * circleR;
+  const point4Y = randomCircleFactor() * circleStartY + randomCircleFactor() * circleR;
 
-  return [
-    point1X,
-    point1Y,
-    point2X,
-    point2Y,
-    point3X,
-    point3Y,
-    point4X,
-    point4Y,
-  ];
+  return [point1X, point1Y, point2X, point2Y, point3X, point3Y, point4X, point4Y];
 }
 
 function drawCircleContainer(fruitCoordinates) {
@@ -156,19 +120,17 @@ function drawCircleContainer(fruitCoordinates) {
   brush.vertex(fruitCoordinates[4], fruitCoordinates[5]);
   brush.vertex(fruitCoordinates[6], fruitCoordinates[7]);
   brush.endShape(CLOSE);
-  
 }
 
 function setHatchFill(shapeSize, lightRGB, darkRGB) {
-  let randomColor = random(1, 100);
+  const randomColor = random(1, 100);
 
-  let colorR = map(randomColor, 1, 100, lightRGB.r, darkRGB.r);
-  let colorG = map(randomColor, 1, 100, lightRGB.g, darkRGB.g);
-  let colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
+  const colorR = map(randomColor, 1, 100, lightRGB.r, darkRGB.r);
+  const colorG = map(randomColor, 1, 100, lightRGB.g, darkRGB.g);
+  const colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
 
-  
   brush.setHatch("charcoal", [colorR, colorG, colorB], (0.7 * shapeSize) / 100);
-  brush.hatch(1, random(0, 0.3 * Math.PI), {
+  brush.hatch(0.75, 0, {
     rand: 0,
     continuous: false,
     gradient: 0,
@@ -176,161 +138,105 @@ function setHatchFill(shapeSize, lightRGB, darkRGB) {
 }
 
 function setHatchTexture(shapeSize, lightRGB, darkRGB) {
-  let randomColor = random(1, 100);
-  let colorR = map(randomColor, 1, 100, lightRGB.r, darkRGB.r);
-  let colorG = map(randomColor, 1, 100, lightRGB.g, darkRGB.g);
-  let colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
+  const randomColor = random(1, 100);
+  const colorR = map(randomColor, 1, 100, lightRGB.r, darkRGB.r);
+  const colorG = map(randomColor, 1, 100, lightRGB.g, darkRGB.g);
+  const colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
 
   brush.setHatch(
     "hatch_brush",
     [colorR, colorG, colorB],
     (random(2, 10) * shapeSize) / 100
   );
-  brush.hatch(2, random(0, 0.3 * Math.PI), {
+  brush.hatch(1, 0, {
     rand: 0,
     continuous: false,
     gradient: 0.2,
   });
 }
 
-function hexToRgb(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
+const colorCache = {};
+function hexToRgbCached(hex) {
+  if (colorCache[hex]) return colorCache[hex];
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  const rgb = result
+    ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) }
     : null;
+  colorCache[hex] = rgb;
+  return rgb;
 }
 
 
 
+let pointsForSpline = [];
+let pointsForFruit = [];
 
 
-function drawTucano(tucanoR, tucanoStartX, tucanoStartY) {
-  //Colorize
-
-  tucanodarkestFillColor = "#901010";
-  tucanoLightestFillColor = "#C3810D";
-
-  tucanoDarkestFillColorRGB = hexToRgb(tucanodarkestFillColor);
-  tucanoLightestFillColorRGB = hexToRgb(tucanoLightestFillColor);
-
-  //Randomize coordinates
-  let tucanoCoordinates = randomCircleCoordinates(
-    tucanoR,
-    tucanoStartX,
-    tucanoStartY
-  );
-
-  //Base color
-  setHatchFill(tucanoR, tucanoLightestFillColorRGB, tucanoDarkestFillColorRGB);
-  //Base container
-  drawCircleContainer(tucanoCoordinates);
-
-  for (let i = 0; i < 4; i++) {
-    //Adding texture
-    setHatchTexture(
-      tucanoR,
-      tucanoLightestFillColorRGB,
-      tucanoDarkestFillColorRGB
-    );
-    //Base container
-    drawCircleContainer(tucanoCoordinates);
-  }
-
-
-  drawTucanBeak(
-    tucanoCoordinates,
-    tucanoR,
-    tucanoLightestFillColorRGB,
-    tucanoDarkestFillColorRGB
-  );
-
-
-  //draw Beak
-  //draw circle eye
-  //draw circle eyeball
-  //draw wings  
-
-}
-
-
-function drawTucanBeak(tucanoCoordinates, tucanoR, lightRGB, darkRGB) {
-  let avgX =
-    (tucanoCoordinates[0] +
-      tucanoCoordinates[2] +
-      tucanoCoordinates[4] +
-      tucanoCoordinates[6]) /
-    4;
-  let avgY =
-    (tucanoCoordinates[1] +
-      tucanoCoordinates[3] +
-      tucanoCoordinates[5] +
-      tucanoCoordinates[7]) /
-    4;
-
-  brush.noStroke();
-  
-  let centerX = avgX;
-  let centerY = avgY;
-
-  brush.fill("brown",100)
-  brush.beginShape();
-  brush.vertex(centerX, centerY);
-  
-  let startAngle = -PI / 3;
-  let endAngle = startAngle + (2 * PI) / 3;
-  let numPoints = 30;
-  
-  for (let i = 0; i <= numPoints; i++) {
-    let angle = lerp(startAngle, endAngle, i / numPoints);
-    let x = centerX + tucanoR * cos(angle) * 0.8;
-    let y = centerY + tucanoR * sin(angle)* 0.8;
-    brush.vertex(x, y);
-  }
-  
-  brush.vertex(centerX, centerY);
-  brush.endShape(CLOSE);
-}
+// ###DRAW
 
 
 
-
-
-
-//###DRAW
 function draw() {
   translate(-width / 2, -height / 2);
-  let radius = 50;
 
-  let startX = -width / 2;
-  let startY = radius - height / 3;
+  const fruitRadius = fruitRadiusSlider.value;
+  const startX = 0 - fruitRadius * 2;
+  const startY = 0 - fruitRadius;
 
-  let numFruits = width / radius;
-  let curveHeight = height;
-  let curveWidth = width / 3;
-  let angleOffset = -10 // de 0 à 10
+  const curveHeight = height;
+  const curveWidth = width / 3;
+  const angleOffset = 10 - angleOffsetSlider.value;
 
-let blankSpaceChance = 1; //1 À 9
-let curveSpacing = 0.05; // de 0.05 à 10
+  const blankSpaceChance = 10 - blankSpaceChanceSlider.value;
+  const curveSpacing = map(curveSpacingSlider.value, 0, 20, 3, 0.3);
 
-if (random(1,10) > blankSpaceChance) {
-  if (frameCount <= numFruits) {
-    let t = (frameCount - 1) / (numFruits - 1);
-    let x = startX - curveWidth * cos(t * PI + angleOffset);
-    let y = startY + curveHeight * t; // Linear interpolation for y
-    drawFruit(radius, x, y);
-  } else if (frameCount <= numFruits * 20) {
-    let curveIndex = Math.floor((frameCount - 1) / numFruits);
-    let t = ((frameCount - 1) % numFruits) / (numFruits - 1);
-    let x = startX - curveWidth * cos(t * PI + angleOffset) + curveIndex * (width * curveSpacing);
-    let y = startY + curveHeight * t; // Linear interpolation for y
-    drawFruit(radius, x, y);
-    
+  const fruitSpacing = fruitRadius * 1.2;
+  const fruitsPerCurve = Math.floor(curveHeight / fruitSpacing);
+
+  if (random(1, 10) > blankSpaceChance) {
+    if (frameCount <= fruitsPerCurve) {
+      
+      const t = (frameCount - 1) / (fruitsPerCurve - 1);
+      const x = startX + curveWidth * cos(t * PI + angleOffset);
+      const y = startY + curveHeight * t;
+      pointsForSpline.push([(x * random(0.95,1.05)),(y * random(0.95,1.05))]);
+      console.log(pointsForSpline)
+      drawFruit(fruitRadius, x, y);
+    } else {
+      if(fruitsPerCurve == pointsForSpline.length){
+        drawBranch(pointsForSpline);
+        console.log(pointsForSpline)
+        pointsForSpline = [];
+
+        for(let j = 0; j < pointsForFruit.length; j++){
+          drawFruit(fruitRadius, pointsForFruit[j][0],pointsForFruit[j][1]);
+          console.log(pointsForFruit[j].x)
+        }
+        pointsForFruit = [];
+      }
+      const curveIndex = Math.floor((frameCount - 1) / fruitsPerCurve);
+      const t = ((frameCount - 1) % fruitsPerCurve) / (fruitsPerCurve - 1);
+      const x =
+        startX + curveWidth * cos(t * PI + angleOffset) +
+        curveIndex * (curveWidth * curveSpacing);
+      const y = startY + curveHeight * t;
+      pointsForFruit.push([x,y]);
+      pointsForSpline.push([(x * random(0.95,1.05)),(y * random(0.95,1.05))]);
+
+    }
   }
-
-
 }
+
+
+
+function drawBranch(points){
+
+  const randomColor = random(1, 100);
+  const colorR = map(randomColor, 1, 100, 85, 38);
+  const colorG = map(randomColor, 1, 100, 48, 22);
+  const colorB = map(randomColor, 1, 100, 17, 8);
+
+
+  brush.set("2H",[colorR, colorG,colorB],40);
+  brush.spline(points, 1);
 }
