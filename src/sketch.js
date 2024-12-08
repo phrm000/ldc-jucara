@@ -16,15 +16,17 @@ var productDescriptionField = document.getElementById("productDescriptionField")
 
 function preload() {
   brush.preload();
-  font = loadFont("fonts/krona.ttf");
+  titleFont = loadFont("fonts/styro-variable.ttf");
+  descFont = loadFont("fonts/inter.ttf");
 }
 
 function setup() {
   C.createCanvas();
   background("#EAEADC");
   angleMode(RADIANS);
-  textFont(font);
+  textFont(titleFont);
 }
+
 
 function windowResized() {
   C.resize();
@@ -53,19 +55,19 @@ function drawFruit(fruitR, fruitStartX, fruitStartY) {
   );
 
   // Draw base and texture
-  for (let j = 0; j < 2; j++) {
+
     setHatchFill(fruitR, fruitLightestFillColorRGB, fruitDarkestFillColorRGB);
     drawCircleContainer(fruitCoordinates);
-  }
 
-  for (let i = 0; i < 1; i++) {
+
+
     setHatchTexture(
       fruitR,
       fruitLightestFillColorRGB,
       fruitDarkestFillColorRGB
     );
     drawCircleContainer(fruitCoordinates);
-  }
+
 
   // Fruit stem
   drawFruitStem(
@@ -109,7 +111,7 @@ function drawFruitStem(fruitCoordinates, shapeSize, lightRGB, darkRGB) {
 }
 
 function randomCircleCoordinates(circleR, circleStartX, circleStartY) {
-  const randomCircleFactor = () => random(0.95, 1.05);
+  const randomCircleFactor = () => random(0.98, 1.02);
   const point1X = randomCircleFactor() * circleStartX;
   const point1Y = randomCircleFactor() * circleStartY;
   const point2X = randomCircleFactor() * circleStartX + randomCircleFactor() * circleR;
@@ -139,8 +141,8 @@ function setHatchFill(shapeSize, lightRGB, darkRGB) {
   const colorG = map(randomColor, 1, 100, lightRGB.g, darkRGB.g);
   const colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
 
-  brush.setHatch("charcoal", [colorR, colorG, colorB], (5 * shapeSize) / 100);
-  brush.hatch(shapeSize / 5, 0, {
+  brush.setHatch("charcoal", [colorR, colorG, colorB], 15);
+  brush.hatch(0.5, 0, {
     rand: 0,
     continuous: false,
     gradient: 0,
@@ -158,10 +160,10 @@ function setHatchTexture(shapeSize, lightRGB, darkRGB) {
     [colorR, colorG, colorB],
     (random(2, 10) * shapeSize) / 100
   );
-  brush.hatch(shapeSize/100, 0, {
+  brush.hatch(shapeSize/200, 0, {
     rand: 0,
-    continuous: false,
-    gradient: 0.2,
+    continuous: true,
+    gradient: 0.5,
   });
 }
 
@@ -188,9 +190,9 @@ let pointsForFruit = [];
 
 function draw() {
   translate(-width / 2, -height / 2);
-  // console.log(width);
-  const fruitRadius = fruitRadiusSlider.value;
-  const startX = 0 - fruitRadius * 2;
+
+  const fruitRadius = fruitRadiusSlider.value/400 * height;
+  const startX = 0 - fruitRadius * 2 + width*0.05;
   const startY = 0 - fruitRadius;
 
   const curveHeight = height;
@@ -203,6 +205,11 @@ function draw() {
   const fruitSpacing = fruitRadius * 1.2;
   const fruitsPerCurve = Math.floor(curveHeight / fruitSpacing);
 
+
+  const productTitleFieldText = productTitleField.value
+  const productDescFieldText = productDescriptionField.value
+
+
   if (random(1, 10) > blankSpaceChance) {
     if (frameCount <= fruitsPerCurve) {
       
@@ -210,17 +217,17 @@ function draw() {
       const x = startX + curveWidth * cos(t * PI + angleOffset);
       const y = startY + curveHeight * t;
       pointsForSpline.push([(x * random(0.95,1.05)),(y * random(0.95,1.05))]);
-      console.log(pointsForSpline)
+
       drawFruit(fruitRadius, x, y);
     } else {
       if(fruitsPerCurve == pointsForSpline.length){
         drawBranch(pointsForSpline,fruitRadius);
-        console.log(pointsForSpline)
+
         pointsForSpline = [];
 
         for(let j = 0; j < pointsForFruit.length; j++){
           drawFruit(fruitRadius, pointsForFruit[j][0],pointsForFruit[j][1]);
-          console.log(pointsForFruit[j].x)
+          //console.log(pointsForFruit[j].x)
         }
         pointsForFruit = [];
       }
@@ -237,7 +244,7 @@ function draw() {
   }
 
 
-  drawTextContainer();
+  drawTextContainer(productTitleFieldText,productDescFieldText);
 }
 
 
@@ -256,22 +263,33 @@ function drawBranch(points,fruitRadius){
 
 
 
-function drawTextContainer(){
+function drawTextContainer(productTitleFieldText,productDescFieldText){
+  
   noStroke();
   fill("#EAEADC");
-  rect(width * 0.05, height * 0.7, width * 0.9, height * 0.25); 
+  rect(width * 0, height * 0.00, width * 0.22, height); 
 
+  push();
   fill("#381233");
-  textAlign(LEFT,CENTER);
-  textSize(28);
-  text("Titulo de exemplo", width * 0.1, height * 0.75)
+  textAlign(LEFT, CENTER);
+  textSize(height / 10);
+  textStyle(NORMAL);
+  textFont(titleFont);
+  translate(width * 0.13, height * 0.02);
+  rotate(PI / 2);
+  text(productTitleFieldText, 0, 0);
+  pop();
 
-
+  push();
   fill("#381233");
-  textAlign(LEFT,CENTER);
-  textSize(16);
-  text("Sub de exemplo", width * 0.1, height * 0.80)
-
+  textAlign(LEFT, CENTER);
+  textSize(width / 60);
+  textStyle(ITALIC);
+  textFont(descFont);
+  translate(width * 0.10, height * 0.725);
+  rotate(PI / 2);
+  text(productDescFieldText, 0, 0, height*0.245);
+  pop();
 
 }
 

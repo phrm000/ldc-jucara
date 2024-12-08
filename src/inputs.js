@@ -1,34 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM fully loaded");
 
-
     const verticalFrameInput = document.getElementById("verticalFrame");
-    const horizontalFrameInput = document.getElementById("horizontalFrame");
     const squareFrameInput = document.getElementById("squareFrame");
 
-
     verticalFrameInput.addEventListener("click", () => {
-        canvasHeight = window.innerHeight * 0.8;
+        canvasHeight = window.innerHeight * 0.9;
         canvasWidth = canvasHeight * 0.7;
-        updateCanvasAndUI(verticalFrameInput, [horizontalFrameInput, squareFrameInput]);
-    });
-
-    horizontalFrameInput.addEventListener("click", () => {
-        canvasHeight = window.innerHeight * 0.7;
-        canvasWidth = canvasHeight * 1.3;
-        updateCanvasAndUI(horizontalFrameInput, [verticalFrameInput, squareFrameInput]);
+        updateCanvasAndUI(verticalFrameInput, [squareFrameInput]);
     });
 
     squareFrameInput.addEventListener("click", () => {
-        canvasHeight = window.innerHeight * 0.8;
+        canvasHeight = window.innerHeight * 0.95;
         canvasWidth = canvasHeight;
-        updateCanvasAndUI(squareFrameInput, [verticalFrameInput, horizontalFrameInput]);
+        updateCanvasAndUI(squareFrameInput, [verticalFrameInput]);
     });
-
 
     verticalFrameInput.click();
 });
-
 
 function updateCanvasAndUI(activeElement, otherElements) {
     activeElement.classList.add("active");
@@ -37,8 +26,5 @@ function updateCanvasAndUI(activeElement, otherElements) {
     C.resize(); 
     redraw(); 
     background("#EAEADC");
-
-
-
 }
 
