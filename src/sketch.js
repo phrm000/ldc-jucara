@@ -11,15 +11,25 @@ var curveSpacingSlider = document.getElementById("curveSpacingSlider");
 
 
 
+var productTitleField = document.getElementById("productTitleField");
+var productDescriptionField = document.getElementById("productDescriptionField");
+
 function preload() {
-  // If you are going to use custom image brush tips, include this in preload!
   brush.preload();
+  font = loadFont("fonts/krona.ttf");
 }
 
 function setup() {
   C.createCanvas();
   background("#EAEADC");
   angleMode(RADIANS);
+  textFont(font);
+}
+
+function windowResized() {
+  C.resize();
+  redraw();
+  background("#EAEADC");
 }
 
 function drawFruit(fruitR, fruitStartX, fruitStartY) {
@@ -129,8 +139,8 @@ function setHatchFill(shapeSize, lightRGB, darkRGB) {
   const colorG = map(randomColor, 1, 100, lightRGB.g, darkRGB.g);
   const colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
 
-  brush.setHatch("charcoal", [colorR, colorG, colorB], (0.7 * shapeSize) / 100);
-  brush.hatch(shapeSize / 70, 0, {
+  brush.setHatch("charcoal", [colorR, colorG, colorB], (5 * shapeSize) / 100);
+  brush.hatch(shapeSize / 5, 0, {
     rand: 0,
     continuous: false,
     gradient: 0,
@@ -178,7 +188,7 @@ let pointsForFruit = [];
 
 function draw() {
   translate(-width / 2, -height / 2);
-
+  // console.log(width);
   const fruitRadius = fruitRadiusSlider.value;
   const startX = 0 - fruitRadius * 2;
   const startY = 0 - fruitRadius;
@@ -225,6 +235,9 @@ function draw() {
 
     }
   }
+
+
+  drawTextContainer();
 }
 
 
@@ -240,3 +253,25 @@ function drawBranch(points,fruitRadius){
   brush.set("2H",[colorR, colorG,colorB],map(fruitRadius,30,100,10,55));
   brush.spline(points, 1);
 }
+
+
+
+function drawTextContainer(){
+  noStroke();
+  fill("#EAEADC");
+  rect(width * 0.05, height * 0.7, width * 0.9, height * 0.25); 
+
+  fill("#381233");
+  textAlign(LEFT,CENTER);
+  textSize(28);
+  text("Titulo de exemplo", width * 0.1, height * 0.75)
+
+
+  fill("#381233");
+  textAlign(LEFT,CENTER);
+  textSize(16);
+  text("Sub de exemplo", width * 0.1, height * 0.80)
+
+
+}
+

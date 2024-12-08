@@ -4,7 +4,12 @@
   --hoverSecondary-bg-color: #c3c3cf;
   --accent-purple: #381233;
   --secondary-purple: #978795;
+  --input-bg-color: #F5F5F8;
+
+
 }
+
+
 
 html,
 body {
@@ -22,31 +27,39 @@ body {
   display: flex;
   width: 544px;
   height: 100%;
-  padding: 48px 32px 24px 32px;
+  padding: 48px 32px 72px 32px;
   flex-direction: column;
   align-items: flex-start;
   flex-shrink: 0;
   background-color: var(--main-bg-color);
   font-family: "Inter", sans-serif;
   gap: 32px;
+  overflow-y: auto;
+}
+
+.divider {
+  border-top: 1px solid var(--hoverSecondary-bg-color);
+  width: 100%;
+  margin: 12px 0px;
 }
 
 .inputLabel-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 24px;
+  gap: 12px;
   align-self: stretch;
   width: 100%;
 }
-.frameSelection-container{
+
+.frameSelection-container {
   display: flex;
-align-items: flex-start;
-gap: 16px;
-align-self: stretch;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
 }
 
-.frameSelection-input{
+.frameSelection-input {
   display: flex;
   height: 64px;
   padding: 12px 16px;
@@ -54,41 +67,45 @@ align-self: stretch;
   gap: 8px;
   flex: 1 0 0;
   border-radius: 4px;
-  border: 2px solid #4D1B46;
-  color: #4D1B46 !important;
+  border: 2px solid #4d1b46;
+  color: #4d1b46 !important;
+  cursor: pointer !important;
+  transition: 0.2s;
 }
 
-.frameSelection-description{
+.frameSelection-description {
   display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2px;
 }
 
-label , .leadDescription{
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.minorDescription{
+label,
+.leadDescription {
   font-size: 14px;
+  font-weight: bold;
+  line-height: 100%;
+}
+
+.minorDescription {
+  font-size: 12px;
   font-weight: 400;
+  line-height: 100%;
 }
 
-
-.deactivated{
+.active {
+  opacity: 1 !important;
+}
+.deactivated {
   opacity: 0.5;
+  transition: 0.2s;
 }
 
-.frameSelection-input:hover{
+.frameSelection-input:hover {
   opacity: 0.7;
+  transition: 0.2s;
 }
-
-
-
-
-
-
 
 .slider {
   -webkit-appearance: none;
@@ -98,6 +115,7 @@ label , .leadDescription{
   outline: none;
   opacity: 0.8;
   transition: 0.2s;
+  margin: 12px 0;
 }
 
 .slider:hover {
@@ -134,10 +152,24 @@ label , .leadDescription{
   line-height: normal;
 }
 
+.text-input{
+  display: flex;
+  height: 44px;
+  padding: 10px 16px;
+  align-items: start;
+  gap: 4px;
+  align-self: stretch;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid var(--secondary-bg-color);
+  background: var(--input-bg-color);
+  resize: none;
+}
 
+.textArea{
+  height: 64px;
 
-
-
+}
 
 
 

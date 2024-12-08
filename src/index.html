@@ -15,9 +15,12 @@
   </head>
   <body>
     <section class="inputs-aside">
-      <div class="inputLabel-container">
-        <label for="angleOffsetSlider">Tamanho de frutos</label>
+
+        <!-- CANVAS SIZE -->
+      <div class="inputLabel-container"> 
+        <label for="angleOffsetSlider">Formato</label>
         <div class="frameSelection-container">
+
           <div class="frameSelection-input" id="verticalFrame">
             <img src="img/Vertical_frame.svg" />
             <div class="frameSelection-description">
@@ -25,29 +28,37 @@
               <span class="minorDescription">7 x 10cm</span>
             </div>
           </div>
-          <div class="frameSelection-input" id="verticalFrame">
-            <img src="img/Vertical_frame.svg" />
+
+          <div class="frameSelection-input" id="horizontalFrame">
+            <img src="img/Horizontal_frame.svg" />
             <div class="frameSelection-description">
               <span class="leadDescription">Horizontal</span>
               <span class="minorDescription">10 x 7 cm</span>
             </div>
           </div>
-          <div class="frameSelection-input" id="verticalFrame">
-            <img src="img/Vertical_frame.svg" />
+
+          <div class="frameSelection-input" id="squareFrame">
+            <img src="img/Square_frame.svg" />
             <div class="frameSelection-description">
-              <span class="leadDescription">Vertical</span>
-              <span class="minorDescription"> x 7 cm</span>
+              <span class="leadDescription">Square</span>
+              <span class="minorDescription">8 x 8 cm</span>
             </div>
           </div>
+
         </div>
       </div>
+
+      <!-- DIVIDER -->
+      <hr class="divider"></hr>
+
+      <!-- SIZE OF FRUITS -->
       <div class="inputLabel-container">
         <label for="angleOffsetSlider">Tamanho de frutos</label>
         <input
           type="range"
           id="fruitRadiusSlider"
           class="slider"
-          value="60"
+          value="40"
           min="20"
           max="120"
         />
@@ -56,6 +67,9 @@
           <span>Grandes</span>
         </div>
       </div>
+
+
+     <!-- NUMBER OF FRUITS -->
       <div class="inputLabel-container">
         <label for="angleOffsetSlider">Quantidade de frutos</label>
         <input
@@ -71,6 +85,8 @@
           <span>Muitos</span>
         </div>
       </div>
+
+    <!-- NUMBER OF BRANCHES -->
       <div class="inputLabel-container">
         <label for="angleOffsetSlider">Quantidade de galhos</label>
         <input
@@ -86,6 +102,8 @@
           <span>Muitos</span>
         </div>
       </div>
+
+      <!-- DIRECTION OF THE BRANCHES -->
       <div class="inputLabel-container">
         <label for="angleOffsetSlider">Direção dos galhos</label>
         <input
@@ -101,10 +119,42 @@
           <span>Direita</span>
         </div>
       </div>
+
+      <!-- DIVIDER -->
+      <hr class="divider"></hr>
+
+      <!-- PRODUCT TITLE -->
+      <div class="inputLabel-container">
+        <label for="productTitleField">Titulo do produto</label>
+        <textarea
+          type="text"
+          id="productTitleField"
+          class="text-input"
+          placeholder="Adicione um titulo curto"
+          maxlength ="40"
+        ></textarea>
+      </div>
+
+
+      <!-- PRODUCT DESCRIPTION -->
+      <div class="inputLabel-container">
+        <label for="productDescriptionField">Titulo do produto</label>
+        <input
+          type="text"
+          id="productDescriptionField"
+          class="text-input textArea"
+          placeholder="Adicione uma descrição ao produto"
+          maxlength ="80"
+
+        ></textarea>
+      </div>
+
+
     </section>
     <div id="overlay-effect"></div>
     <main></main>
     <script src="canvas.js"></script>
     <script src="sketch.js"></script>
+    <script src="inputs.js"></script>
   </body>
 </html>
