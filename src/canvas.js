@@ -1,33 +1,49 @@
+
+let canvasHeight = window.innerHeight * 0.9;
+let canvasWidth = canvasHeight * 0.7;
+
 const C = {
-    setSize(w, h, p = 1, css) {
-        this.width = w;
-        this.height = h;
-        this.pD = p; // Pixel density
-        this.css = css;
+    setSize(p = 1, css) {
+        this.pD = p; // Densidade de pixels
+        this.css = css; // ID do canvas
+        this.updateSize(); // Define tamanhos iniciais
+    },
+    updateSize() {
+        this.height = canvasHeight; // 70% da altura da janela
+        this.width = canvasWidth; // Largura proporcional à altura
     },
     createCanvas() {
+        this.updateSize(); // Atualiza dimensões antes de criar o canvas
         this.main = createCanvas(this.width, this.height, WEBGL);
         pixelDensity(this.pD);
         this.main.id(this.css);
-        this.resize(); // Apply initial resizing
+        this.resize(); // Aplica redimensionamento inicial
     },
     resize() {
+        this.updateSize(); // Atualiza dimensões no redimensionamento
+        resizeCanvas(this.width, this.height); // Atualiza o tamanho do canvas
         const canvas = document.getElementById(this.css);
         if (!canvas) {
             console.error(`Canvas with ID "${this.css}" not found`);
             return;
         }
-        const isLandscape = window.innerWidth / window.innerHeight > this.width / this.height;
-        canvas.style.height = isLandscape ? "100%" : "";
-        canvas.style.width = isLandscape ? "" : "100%";
+        canvas.style.width = ""; // Deixa o estilo CSS proporcional ao canvas
+        canvas.style.height = "";
     }
 };
 
-// Set canvas size and ID
-C.setSize(600, 600, 1, 'mainCanvas');
+// Configurar canvas
+C.setSize(1, 'mainCanvas'); // ID e densidade de pixels
 
-// Handle window resizing with minimal overhead
+// Configuração inicial
+function setup() {
+    C.createCanvas(); // Cria o canvas
+    background("#D6DDD0");
+    noLoop(); // Evita redesenho constante
+}
+
+// Listener para redimensionar janela
 function windowResized() {
-    C.resize();
-    redraw(); // Redraw after resizing
+    C.resize(); // Redimensiona canvas
+    redraw(); // Redesenha conteúdo do canvas
 }

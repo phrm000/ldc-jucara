@@ -130,7 +130,7 @@ function setHatchFill(shapeSize, lightRGB, darkRGB) {
   const colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
 
   brush.setHatch("charcoal", [colorR, colorG, colorB], (0.7 * shapeSize) / 100);
-  brush.hatch(0.75, 0, {
+  brush.hatch(shapeSize / 70, 0, {
     rand: 0,
     continuous: false,
     gradient: 0,
@@ -148,7 +148,7 @@ function setHatchTexture(shapeSize, lightRGB, darkRGB) {
     [colorR, colorG, colorB],
     (random(2, 10) * shapeSize) / 100
   );
-  brush.hatch(1, 0, {
+  brush.hatch(shapeSize/100, 0, {
     rand: 0,
     continuous: false,
     gradient: 0.2,
@@ -204,7 +204,7 @@ function draw() {
       drawFruit(fruitRadius, x, y);
     } else {
       if(fruitsPerCurve == pointsForSpline.length){
-        drawBranch(pointsForSpline);
+        drawBranch(pointsForSpline,fruitRadius);
         console.log(pointsForSpline)
         pointsForSpline = [];
 
@@ -229,7 +229,7 @@ function draw() {
 
 
 
-function drawBranch(points){
+function drawBranch(points,fruitRadius){
 
   const randomColor = random(1, 100);
   const colorR = map(randomColor, 1, 100, 85, 38);
@@ -237,6 +237,6 @@ function drawBranch(points){
   const colorB = map(randomColor, 1, 100, 17, 8);
 
 
-  brush.set("2H",[colorR, colorG,colorB],40);
+  brush.set("2H",[colorR, colorG,colorB],map(fruitRadius,30,100,10,55));
   brush.spline(points, 1);
 }

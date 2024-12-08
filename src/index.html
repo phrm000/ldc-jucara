@@ -3,64 +3,108 @@
   <head>
     <script src="js/p5.min.js"></script>
     <script src="js/p5.brush.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="reset.css" />
     <meta charset="utf-8" />
-
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <section class="inputs-aside">
-
       <div class="inputLabel-container">
         <label for="angleOffsetSlider">Tamanho de frutos</label>
-        <input type="range" id="fruitRadiusSlider" class="slider" value="70" min="30" max="100">
+        <div class="frameSelection-container">
+          <div class="frameSelection-input" id="verticalFrame">
+            <img src="img/Vertical_frame.svg" />
+            <div class="frameSelection-description">
+              <span class="leadDescription">Vertical</span>
+              <span class="minorDescription">7 x 10cm</span>
+            </div>
+          </div>
+          <div class="frameSelection-input" id="verticalFrame">
+            <img src="img/Vertical_frame.svg" />
+            <div class="frameSelection-description">
+              <span class="leadDescription">Horizontal</span>
+              <span class="minorDescription">10 x 7 cm</span>
+            </div>
+          </div>
+          <div class="frameSelection-input" id="verticalFrame">
+            <img src="img/Vertical_frame.svg" />
+            <div class="frameSelection-description">
+              <span class="leadDescription">Vertical</span>
+              <span class="minorDescription"> x 7 cm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="inputLabel-container">
+        <label for="angleOffsetSlider">Tamanho de frutos</label>
+        <input
+          type="range"
+          id="fruitRadiusSlider"
+          class="slider"
+          value="60"
+          min="20"
+          max="120"
+        />
         <div class="sliderDescription">
           <span>Pequenos</span>
           <span>Grandes</span>
         </div>
       </div>
-
       <div class="inputLabel-container">
         <label for="angleOffsetSlider">Quantidade de frutos</label>
-        <input type="range" id="blankSpaceChanceSlider" class="slider" value="10" min="0" max="10">
+        <input
+          type="range"
+          id="blankSpaceChanceSlider"
+          class="slider"
+          value="10"
+          min="0"
+          max="10"
+        />
         <div class="sliderDescription">
           <span>Poucos</span>
           <span>Muitos</span>
         </div>
       </div>
-
       <div class="inputLabel-container">
         <label for="angleOffsetSlider">Quantidade de galhos</label>
-        <input type="range" id="curveSpacingSlider" class="slider" value="20" min="1" max="20">
+        <input
+          type="range"
+          id="curveSpacingSlider"
+          class="slider"
+          value="20"
+          min="1"
+          max="20"
+        />
         <div class="sliderDescription">
           <span>Poucos</span>
           <span>Muitos</span>
         </div>
       </div>
-
       <div class="inputLabel-container">
         <label for="angleOffsetSlider">Direção dos galhos</label>
-        <input type="range" id="angleOffsetSlider" class="slider" value="9" min="0" max="10">
+        <input
+          type="range"
+          id="angleOffsetSlider"
+          class="slider"
+          value="10"
+          min="0"
+          max="10"
+        />
         <div class="sliderDescription">
           <span>Esquerda</span>
           <span>Direita</span>
         </div>
       </div>
-
-
-      
     </section>
-    
     <div id="overlay-effect"></div>
-    <main>
-    </main>
+    <main></main>
     <script src="canvas.js"></script>
     <script src="sketch.js"></script>
-
   </body>
 </html>
