@@ -25,6 +25,15 @@ function setup() {
   background("#EAEADC");
   angleMode(RADIANS);
   textFont(titleFont);
+
+  translate(-width / 2, -height / 2);
+
+  const tucanoRadius = 100; // Adjust radius as needed
+  const tucanoX = width / 2;
+  const tucanoY = height / 2;
+
+  drawTucano(tucanoRadius, tucanoX, tucanoY);
+
 }
 
 
@@ -188,64 +197,6 @@ let pointsForFruit = [];
 
 
 
-function draw() {
-  translate(-width / 2, -height / 2);
-
-  const fruitRadius = fruitRadiusSlider.value/400 * height;
-  const startX = 0 - fruitRadius * 2 + width*0.05;
-  const startY = 0 - fruitRadius;
-
-  const curveHeight = height;
-  const curveWidth = width / 3;
-  const angleOffset = 10 - angleOffsetSlider.value;
-
-  const blankSpaceChance = 10 - blankSpaceChanceSlider.value;
-  const curveSpacing = map(curveSpacingSlider.value, 0, 20, 3, 0.3);
-
-  const fruitSpacing = fruitRadius * 1.2;
-  const fruitsPerCurve = Math.floor(curveHeight / fruitSpacing);
-
-
-  const productTitleFieldText = productTitleField.value
-  const productDescFieldText = productDescriptionField.value
-
-
-  if (random(1, 10) > blankSpaceChance) {
-    if (frameCount <= fruitsPerCurve) {
-      
-      const t = (frameCount - 1) / (fruitsPerCurve - 1);
-      const x = startX + curveWidth * cos(t * PI + angleOffset);
-      const y = startY + curveHeight * t;
-      pointsForSpline.push([(x * random(0.95,1.05)),(y * random(0.95,1.05))]);
-
-      drawFruit(fruitRadius, x, y);
-    } else {
-      if(fruitsPerCurve == pointsForSpline.length){
-        drawBranch(pointsForSpline,fruitRadius);
-
-        pointsForSpline = [];
-
-        for(let j = 0; j < pointsForFruit.length; j++){
-          drawFruit(fruitRadius, pointsForFruit[j][0],pointsForFruit[j][1]);
-          //console.log(pointsForFruit[j].x)
-        }
-        pointsForFruit = [];
-      }
-      const curveIndex = Math.floor((frameCount - 1) / fruitsPerCurve);
-      const t = ((frameCount - 1) % fruitsPerCurve) / (fruitsPerCurve - 1);
-      const x =
-        startX + curveWidth * cos(t * PI + angleOffset) +
-        curveIndex * (curveWidth * curveSpacing);
-      const y = startY + curveHeight * t;
-      pointsForFruit.push([x,y]);
-      pointsForSpline.push([(x * random(0.95,1.05)),(y * random(0.95,1.05))]);
-
-    }
-  }
-
-
-  drawTextContainer(productTitleFieldText,productDescFieldText);
-}
 
 
 
@@ -262,6 +213,229 @@ function drawBranch(points,fruitRadius){
 }
 
 
+
+
+
+
+function drawTucano(tucanoR, tucanoStartX, tucanoStartY) {
+  // Colorize
+  const tucanoDarkestFillColor = "#C3810D";
+  const tucanoLightestFillColor = "#DB7E1A";
+
+  const tucanoDarkestFillColorRGB = hexToRgbCached(tucanoDarkestFillColor);
+  const tucanoLightestFillColorRGB = hexToRgbCached(tucanoLightestFillColor);
+
+  // Randomize coordinates
+  const tucanoCoordinates = randomCircleCoordinates(
+    tucanoR,
+    tucanoStartX,
+    tucanoStartY
+  );
+
+  const avgX =
+    (tucanoCoordinates[0] +
+      tucanoCoordinates[2] +
+      tucanoCoordinates[4] +
+      tucanoCoordinates[6]) /
+    4;
+  const avgY =
+    (tucanoCoordinates[1] +
+      tucanoCoordinates[3] +
+      tucanoCoordinates[5] +
+      tucanoCoordinates[7]) /
+    4;
+    
+
+
+  setHatchFill(tucanoR, tucanoLightestFillColorRGB, tucanoDarkestFillColorRGB);
+
+  drawCircleContainer(tucanoCoordinates);
+
+
+
+    setHatchTexture(
+      tucanoR,
+      tucanoLightestFillColorRGB,
+      tucanoDarkestFillColorRGB
+    );
+    drawCircleContainer(tucanoCoordinates);
+
+
+    const tucanoBeakDarkestFillColor = "#2A1B07";
+    const tucanoBeakLightestFillColor = "#332108";
+
+    const tucanoBeakLightestFillColorRGB = hexToRgbCached(tucanoBeakLightestFillColor);
+    const tucanoBeakDarkestFillColorRGB = hexToRgbCached(tucanoBeakDarkestFillColor);
+
+    let tucanoEyeDarkestFillColor;
+    let tucanoEyeLightestFillColor;
+
+
+
+    for(let counterEyeFactor = 1; 3 >= counterEyeFactor; counterEyeFactor ++){
+      console.log(counterEyeFactor)
+
+
+      switch(counterEyeFactor){
+        case 1:
+          tucanoEyeDarkestFillColor = "#720808";
+          tucanoEyeLightestFillColor = "#901010";
+          break;
+        case 2:
+          tucanoEyeDarkestFillColor = "#148DA6";
+          tucanoEyeLightestFillColor = "#0B9BBA";
+          break;
+        case 3:
+          tucanoEyeDarkestFillColor = "#240101";
+          tucanoEyeLightestFillColor = "#724400";
+          break;
+
+      }
+      console.log(tucanoEyeLightestFillColor)
+      let tucanoEyeLightestFillColorRGB = hexToRgbCached(tucanoEyeLightestFillColor);
+      let tucanoEyeDarkestFillColorRGB = hexToRgbCached(tucanoEyeDarkestFillColor);
+
+      let tucanoEyesR = 3+ tucanoR/( 6 * counterEyeFactor);
+      let tucanoStartX = avgX ;
+      let tucanoStartY = avgY - tucanoR/2.5;
+      setHatchTexture(tucanoEyesR, tucanoEyeLightestFillColorRGB, tucanoEyeDarkestFillColorRGB);
+
+      brush.circle(tucanoStartX, tucanoStartY, tucanoEyesR, false)
+
+      
+      
+      
+    }
+
+
+
+
+  
+
+  setHatchFill(tucanoR, tucanoBeakLightestFillColorRGB, tucanoBeakDarkestFillColorRGB);
+  drawTucanBeak(
+    tucanoCoordinates,
+    tucanoR,
+    tucanoBeakLightestFillColorRGB,
+    tucanoBeakDarkestFillColorRGB
+  );
+
+  setHatchTexture(
+    tucanoR,
+    tucanoBeakLightestFillColorRGB,
+    tucanoBeakDarkestFillColorRGB
+  );
+
+  drawTucanBeak(
+    tucanoCoordinates,
+    tucanoR,
+    tucanoBeakLightestFillColorRGB,
+    tucanoBeakDarkestFillColorRGB
+  );
+
+
+
+ for(let counterFactor = 0; 3 > counterFactor; counterFactor++){
+  drawTucanoWings(
+    tucanoCoordinates,
+    tucanoR,
+    counterFactor
+  );
+
+  setHatchTexture(
+    tucanoR,
+    tucanoBeakLightestFillColorRGB,
+    tucanoBeakDarkestFillColorRGB
+  );
+
+  drawTucanoWings(
+    tucanoCoordinates,
+    tucanoR,
+    counterFactor
+  );
+}
+
+  
+}
+
+function drawTucanBeak(tucanoCoordinates, tucanoR) {
+  const avgX =
+    (tucanoCoordinates[0] +
+      tucanoCoordinates[2] +
+      tucanoCoordinates[4] +
+      tucanoCoordinates[6]) /
+    4;
+  const avgY =
+    (tucanoCoordinates[1] +
+      tucanoCoordinates[3] +
+      tucanoCoordinates[5] +
+      tucanoCoordinates[7]) /
+    4;
+
+  const centerX = avgX;
+  const centerY = avgY;
+
+  brush.noStroke();
+  brush.beginShape();
+  brush.vertex(centerX, centerY);
+
+  const startAngle = -PI / 3;
+  const endAngle = startAngle + (2 * PI) / 3;
+  const numPoints = 5;
+
+  const randomCircleFactor = () => random(0.95, 1.05);
+  console.log(randomCircleFactor)
+  for (let i = 0; i <= numPoints; i++) {
+    const angle = lerp(startAngle, endAngle, i / numPoints);
+    const x = centerX + tucanoR * cos(angle) * 0.7 * randomCircleFactor();
+    const y = centerY + tucanoR * sin(angle) * 0.7 * randomCircleFactor();
+    brush.vertex(x, y);
+  }
+
+  brush.vertex(centerX, centerY);
+  brush.endShape(CLOSE);
+}
+
+
+
+function drawTucanoWings(tucanoCoordinates, tucanoR, counterFactor) {
+
+  let mathFactor = counterFactor / 10
+  console.log(mathFactor)
+  const avgX =
+    (tucanoCoordinates[0] +
+      tucanoCoordinates[2] +
+      tucanoCoordinates[4] +
+      tucanoCoordinates[6]) /
+    4;
+  const avgY =
+    (tucanoCoordinates[1] +
+      tucanoCoordinates[3] +
+      tucanoCoordinates[5] +
+      tucanoCoordinates[7]) /
+    4;
+
+  const centerX = avgX - tucanoR * (0.3 - mathFactor) ;
+  const centerY = avgY + tucanoR*0.1;
+
+  brush.noStroke();
+  brush.beginShape();
+  brush.vertex(centerX, centerY);
+
+  const startAngle = -1.5 * PI + mathFactor * 2 ;
+  const endAngle = startAngle + mathFactor * 2 + (2 * PI) / 3;
+  const numPoints = 3;
+
+  for (let i = 0; i <= numPoints; i++) {
+    const angle = lerp(startAngle, endAngle, i / numPoints);
+    const x = centerX + tucanoR * cos(angle) * 0.5;
+    const y = centerY + tucanoR * sin(angle) * 0.8;
+    brush.vertex(x, y);
+  }
+
+  brush.vertex(centerX, centerY);
+  brush.endShape(CLOSE);
+}
 
 function drawTextContainer(productTitleFieldText,productDescFieldText){
   
@@ -292,4 +466,81 @@ function drawTextContainer(productTitleFieldText,productDescFieldText){
   pop();
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+function draw() {
+  // translate(-width / 2, -height / 2);
+
+  // const fruitRadius = fruitRadiusSlider.value/400 * height;
+  // const startX = 0 - fruitRadius * 2 + width*0.05;
+  // const startY = 0 - fruitRadius;
+
+  // const curveHeight = height;
+  // const curveWidth = width / 3;
+  // const angleOffset = 10 - angleOffsetSlider.value;
+
+  // const blankSpaceChance = 10 - blankSpaceChanceSlider.value;
+  // const curveSpacing = map(curveSpacingSlider.value, 0, 20, 3, 0.3);
+
+  // const fruitSpacing = fruitRadius * 1.2;
+  // const fruitsPerCurve = Math.floor(curveHeight / fruitSpacing);
+
+
+  // const productTitleFieldText = productTitleField.value
+  // const productDescFieldText = productDescriptionField.value
+
+
+  // if (random(1, 10) > blankSpaceChance) {
+  //   if (frameCount <= fruitsPerCurve) {
+      
+  //     const t = (frameCount - 1) / (fruitsPerCurve - 1);
+  //     const x = startX + curveWidth * cos(t * PI + angleOffset);
+  //     const y = startY + curveHeight * t;
+  //     pointsForSpline.push([(x * random(0.95,1.05)),(y * random(0.95,1.05))]);
+
+  //     drawFruit(fruitRadius, x, y);
+  //   } else {
+  //     if(fruitsPerCurve == pointsForSpline.length){
+  //       drawBranch(pointsForSpline,fruitRadius);
+
+  //       pointsForSpline = [];
+
+  //       for(let j = 0; j < pointsForFruit.length; j++){
+  //         drawFruit(fruitRadius, pointsForFruit[j][0],pointsForFruit[j][1]);
+  //         //console.log(pointsForFruit[j].x)
+  //       }
+  //       pointsForFruit = [];
+  //     }
+  //     const curveIndex = Math.floor((frameCount - 1) / fruitsPerCurve);
+  //     const t = ((frameCount - 1) % fruitsPerCurve) / (fruitsPerCurve - 1);
+  //     const x =
+  //       startX + curveWidth * cos(t * PI + angleOffset) +
+  //       curveIndex * (curveWidth * curveSpacing);
+  //     const y = startY + curveHeight * t;
+  //     pointsForFruit.push([x,y]);
+  //     pointsForSpline.push([(x * random(0.95,1.05)),(y * random(0.95,1.05))]);
+
+  //   }
+  // }
+
+
+  // drawTextContainer(productTitleFieldText,productDescFieldText);
+}
+
+
+
+
+
+
+
 
