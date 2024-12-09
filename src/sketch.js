@@ -26,13 +26,13 @@ function setup() {
   angleMode(RADIANS);
   textFont(titleFont);
 
-  translate(-width / 2, -height / 2);
+  // translate(-width / 2, -height / 2);
 
-  const tucanoRadius = 100; // Adjust radius as needed
-  const tucanoX = width / 2;
-  const tucanoY = height / 2;
+  // const tucanoRadius = 100; // Adjust radius as needed
+  // const tucanoX = width / 2;
+  // const tucanoY = height / 2;
 
-  drawGralha(tucanoRadius, tucanoX, tucanoY);
+  // drawGralha(tucanoRadius, tucanoX, tucanoY);
 
 }
 
@@ -292,7 +292,7 @@ function drawGralha(tucanoR, tucanoStartX, tucanoStartY) {
       let tucanoEyeLightestFillColorRGB = hexToRgbCached(tucanoEyeLightestFillColor);
       let tucanoEyeDarkestFillColorRGB = hexToRgbCached(tucanoEyeDarkestFillColor);
 
-      let tucanoEyesR = 3+ tucanoR/( 5 * counterEyeFactor);
+      let tucanoEyesR = 1+ tucanoR/( 5 * counterEyeFactor);
       let tucanoStartX = avgX - tucanoR/10 ;
       let tucanoStartY = avgY - tucanoR/2.5;
       setHatchTexture(tucanoEyesR, tucanoEyeLightestFillColorRGB, tucanoEyeDarkestFillColorRGB);
@@ -436,7 +436,7 @@ function drawTucano(tucanoR, tucanoStartX, tucanoStartY) {
       let tucanoEyeLightestFillColorRGB = hexToRgbCached(tucanoEyeLightestFillColor);
       let tucanoEyeDarkestFillColorRGB = hexToRgbCached(tucanoEyeDarkestFillColor);
 
-      let tucanoEyesR = 3+ tucanoR/( 5 * counterEyeFactor);
+      let tucanoEyesR = 1+ tucanoR/( 5 * counterEyeFactor);
       let tucanoStartX = avgX - tucanoR/10 ;
       let tucanoStartY = avgY - tucanoR/2.5;
       setHatchTexture(tucanoEyesR, tucanoEyeLightestFillColorRGB, tucanoEyeDarkestFillColorRGB);
@@ -664,7 +664,7 @@ function draw() {
       const y = startY + curveHeight * t;
       pointsForSpline.push([(x * random(0.95,1.05)),(y * random(0.95,1.05))]);
 
-      drawFruit(fruitRadius, x, y);
+      drawComponent(fruitRadius, x, y);
     } else {
       if(fruitsPerCurve == pointsForSpline.length){
         drawBranch(pointsForSpline,fruitRadius);
@@ -672,7 +672,7 @@ function draw() {
         pointsForSpline = [];
 
         for(let j = 0; j < pointsForFruit.length; j++){
-          drawFruit(fruitRadius, pointsForFruit[j][0],pointsForFruit[j][1]);
+          drawComponent(fruitRadius, pointsForFruit[j][0],pointsForFruit[j][1]);
         }
         pointsForFruit = [];
       }
@@ -696,6 +696,23 @@ function draw() {
 
 
 
+
+function drawComponent(radius,x,y){
+  
+
+  let componentSelection = random(0, 100);
+  if(componentSelection >= 50){
+    drawFruit(radius, x, y);
+  }
+  else if(componentSelection >= 25 ){
+    drawTucano(radius, x, y);
+  }
+  else{
+    drawGralha(radius, x, y);
+  }
+  
+  
+}
 
 
 
