@@ -1,5 +1,3 @@
-
-
 let nosePoints = [
     [0.5, 0],
     [-5.5, 12],
@@ -31,7 +29,6 @@ let eyebrownsPoints = [
 ];
 
 function drawPerson(personR, personStartX, personStartY) {
-    // Colorize
     const colorSkin = random(0, 100);
     const colorSet =
     colorSkin > 66
@@ -43,7 +40,6 @@ function drawPerson(personR, personStartX, personStartY) {
     const personDarkestFillColorRGB = hexToRgbCached(colorSet.darkest);
     const personLightestFillColorRGB = hexToRgbCached(colorSet.lightest);
   
-    // Randomize coordinates
     const personCoordinates = randomCircleCoordinates(
       personR,
       personStartX,
@@ -69,12 +65,7 @@ function drawPerson(personR, personStartX, personStartY) {
     setHatchTexture(personR, personLightestFillColorRGB, personDarkestFillColorRGB);
     drawCircleContainer(personCoordinates);
   
-
     drawSplineWithBrush(avgX,avgY,personR);
-
-
-
-    
 
     let personEyeDarkestFillColorRGB = hexToRgbCached("#000000");
     let personEyeLightestFillColorRGB = hexToRgbCached("#000000");
@@ -85,42 +76,25 @@ function drawPerson(personR, personStartX, personStartY) {
         personEyeDarkestFillColorRGB
       );
       brush.circle(avgX,avgY + personR/7, personR/11, false);
-
 }
-
-
 
 function drawSplineWithBrush(avgX,avgY,shapeSize) {
     let scaledPoints;
     
-
     brush.push()
     const randomCircleFactor = () => random(0.9, 1.04);
-    // Center spline on the canvas
     push();
     translate(avgX - shapeSize/10 ,avgY - shapeSize/1.8 );
-    brush.set("cpencil", "#323E95", shapeSize / 10);
-    // Scale and position the points
-    scaledPoints = nosePoints.map(([x, y]) => [x * randomCircleFactor()*shapeSize/70, y * randomCircleFactor()*shapeSize/70]); // Scale points for visibility
-
-    // Draw the spline using the brush
-    brush.spline(scaledPoints, 0.8); // Adjust curvature for smoothness
+    brush.set("cpencil", "#3B0B1A", shapeSize / 10);
+    scaledPoints = nosePoints.map(([x, y]) => [x * randomCircleFactor()*shapeSize/70, y * randomCircleFactor()*shapeSize/70]);
+    brush.spline(scaledPoints, 0.8);
     pop();
-
-
-
-
-
-
 
     push();
     translate(avgX-shapeSize/10,avgY);
-    brush.set("cpencil", "#323E95", shapeSize / 10);
-    // Scale and position the points
-    scaledPoints = eyebrownsPoints.map(([x, y]) => [x * shapeSize/70* randomCircleFactor(), y * shapeSize/70 * randomCircleFactor()]); // Scale points for visibility
-
-    // Draw the spline using the brush
-    brush.spline(scaledPoints, 0.8); // Adjust curvature for smoothness
+    brush.set("cpencil", "#3B0B1A", shapeSize / 10);
+    scaledPoints = eyebrownsPoints.map(([x, y]) => [x * shapeSize/70* randomCircleFactor(), y * shapeSize/70 * randomCircleFactor()]);
+    brush.spline(scaledPoints, 0.8);
     pop();
     brush.pop();
 
@@ -128,11 +102,8 @@ function drawSplineWithBrush(avgX,avgY,shapeSize) {
     push();
     translate(avgX +shapeSize/2.5 ,avgY + shapeSize/10);
     brush.set("cpencil", "#000000", shapeSize / 10);
-    // Scale and position the points
-    scaledPoints = mouthPoints.map(([x, y]) => [x * shapeSize/70* randomCircleFactor(), y * shapeSize/70 * randomCircleFactor()]); // Scale points for visibility
-
-    // Draw the spline using the brush
-    brush.spline(scaledPoints, 0.8); // Adjust curvature for smoothness
+    scaledPoints = mouthPoints.map(([x, y]) => [x * shapeSize/70* randomCircleFactor(), y * shapeSize/70 * randomCircleFactor()]);
+    brush.spline(scaledPoints, 0.8);
     pop();
     brush.pop();
 }
