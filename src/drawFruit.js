@@ -54,7 +54,7 @@ const colorR = map(randomColor, 1, 100, lightRGB.r, darkRGB.r);
 const colorG = map(randomColor, 1, 100, lightRGB.g, darkRGB.g);
 const colorB = map(randomColor, 1, 100, lightRGB.b, darkRGB.b);
 
-brush.set("charcoal", [colorR, colorG, colorB], shapeSize / 2);
+brush.set("cpencil", [colorR, colorG, colorB], shapeSize / 5);
 const points = [];
 const angleStep = TWO_PI / 10;
 const radius = shapeSize / 10;

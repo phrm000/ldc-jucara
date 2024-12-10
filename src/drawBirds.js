@@ -298,7 +298,7 @@ function drawTucano(tucanoR, tucanoStartX, tucanoStartY) {
     brush.circle(tucanoStartX, tucanoStartY, tucanoEyesR, false);
   }
 
-  let randomHatchRadius = random(1.25, 1.5);
+  let randomHatchRadius = random(0.9,1.2);
   setHatchTexture(
     tucanoR * randomHatchRadius,
     tucanoBeakLightestFillColorRGB,

@@ -2,18 +2,6 @@ let pointsForSpline = [];
 let pointsForFruit = [];
 
 //Draw each branch spline
-function drawBranch(points, fruitRadius) {
-  const randomColor = random(1, 100);
-  const colorR = map(randomColor, 1, 100, 85, 38);
-  const colorG = map(randomColor, 1, 100, 48, 22);
-  const colorB = map(randomColor, 1, 100, 17, 8);
-
-  brush.set("2H", [colorR, colorG, colorB], map(fruitRadius, 30, 100, 10, 55));
-  console.log("The points are: " + points)
-  brush.spline(points, 1);
-}
-
-
 
 
 function drawTextContainer(productTitleFieldText, productDescFieldText) {
@@ -59,7 +47,7 @@ function draw() {
 
   const blankSpaceChance = 10 - blankSpaceChanceSlider.value;
   const curveSpacing =
-    (fruitRadius / 40) * map(curveSpacingSlider.value, 0, 20, 1.5, 0.15);
+    (fruitRadius / 40) * map(curveSpacingSlider.value, 0, 10, 1, 0.15);
 
   const fruitSpacing = fruitRadius * 1.2;
   const fruitsPerCurve = Math.floor(curveHeight / fruitSpacing);
@@ -109,10 +97,16 @@ function draw() {
 }
 
 function drawComponent(radius, x, y) {
+
+
   let componentSelection = random(0, 100);
-  if (componentSelection <= 75) {
+  console.log("Numero aleatorio" + componentSelection);
+
+  if (componentSelection >= 33) {
     drawFruit(radius, x, y);
-  } else if (componentSelection <= 87) {
+  } else if (componentSelection >= 22) {
+    drawPerson(radius, x, y);
+  } else if (componentSelection >= 11) {
     drawTucano(radius, x, y);
   } else {
     drawGralha(radius, x, y);
