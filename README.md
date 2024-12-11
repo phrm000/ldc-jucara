@@ -1,3 +1,5 @@
+![Intro](/res/VideoJucara.gif)
+
 # Invisible Roots and Heritage of the Juçara Palm: A Generative Identity
 
 This is the proof of the concept of a generative identity representing the journey of the Euterpe edulis from its perspective within Atlantic Rainforest. From its growth to its interactions with nature and humanity, emphasizing its  role within the ecosystem as well as its cultural and economic significance to the community. Heavily based on the [brush.p5 library](https://github.com/acamposuribe/p5.brush).
@@ -51,13 +53,14 @@ Alternatively, you might want to use any IDE to run the code using plugins like 
 
 No extra permission or authentification is needed to access or use the project after its launch you can test all of the control panels at the left of your screen and see the results on the right side just like in the video demo below:
 
+![Demo](/res/Demo.gif)
 
 
 > Heads up: When hovering over inputs the draw function is paused, which means that your drawing will only work after you have made the changes and left that area with your mouse
 
+After you are done creating your artwork proceed to right-click above the canvas to save its image. It will look like this:
 
-
-After you are done creating your artwork proceed to right-click above the canvas to save its image
+![Example](/res/Image_example.png)
 
 > On future releases a button for those operations is planned, please continue with the instructions above for the current state of the project
 
