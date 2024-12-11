@@ -1,24 +1,21 @@
 let fruitdarkestFillColor;
 let fruitLightestFillColor;
 
-var fruitRadiusSlider = document.getElementById("fruitRadiusSlider");
-var blankSpaceChanceSlider = document.getElementById("blankSpaceChanceSlider");
-var angleOffsetSlider = document.getElementById("angleOffsetSlider");
-var curveSpacingSlider = document.getElementById("curveSpacingSlider");
-let isPaused = false;
-const colorCache = {};
+let fruitRadiusSlider = document.getElementById("fruitRadiusSlider");
+let blankSpaceChanceSlider = document.getElementById("blankSpaceChanceSlider");
+let angleOffsetSlider = document.getElementById("angleOffsetSlider");
+let curveSpacingSlider = document.getElementById("curveSpacingSlider");
 
-
-var productTitleField = document.getElementById("productTitleField");
-var productDescriptionField = document.getElementById(
-  "productDescriptionField"
-);
+let productTitleField = document.getElementById("productTitleField");
+let productDescriptionField = document.getElementById("productDescriptionField");
 
 fruitRadiusSlider.addEventListener("input", restart);
 blankSpaceChanceSlider.addEventListener("input", restart);
 angleOffsetSlider.addEventListener("input", restart);
 curveSpacingSlider.addEventListener("input", restart);
 
+let isPaused = false;
+const colorCache = {};
 
 function preload() {
   brush.preload();

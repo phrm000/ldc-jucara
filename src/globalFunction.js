@@ -1,41 +1,3 @@
-function randomCircleCoordinates(circleR, circleStartX, circleStartY) {
-  const randomCircleFactor = () => random(0.98, 1.02);
-  const point1X = randomCircleFactor() * circleStartX;
-  const point1Y = randomCircleFactor() * circleStartY;
-  const point2X =
-    randomCircleFactor() * circleStartX + randomCircleFactor() * circleR;
-  const point2Y =
-    randomCircleFactor() * circleStartY + randomCircleFactor() * circleR;
-  const point3X = randomCircleFactor() * circleStartX;
-  const point3Y =
-    randomCircleFactor() * circleStartY + randomCircleFactor() * circleR * 2;
-  const point4X =
-    randomCircleFactor() * circleStartX - randomCircleFactor() * circleR;
-  const point4Y =
-    randomCircleFactor() * circleStartY + randomCircleFactor() * circleR;
-
-  return [
-    point1X,
-    point1Y,
-    point2X,
-    point2Y,
-    point3X,
-    point3Y,
-    point4X,
-    point4Y,
-  ];
-}
-
-function drawCircleContainer(fruitCoordinates) {
-  brush.noStroke();
-  brush.beginShape(1);
-  brush.vertex(fruitCoordinates[0], fruitCoordinates[1]);
-  brush.vertex(fruitCoordinates[2], fruitCoordinates[3]);
-  brush.vertex(fruitCoordinates[4], fruitCoordinates[5]);
-  brush.vertex(fruitCoordinates[6], fruitCoordinates[7]);
-  brush.endShape(CLOSE);
-}
-
 function drawBranch(points, fruitRadius) {
   const randomColor = random(1, 100);
   const colorR = map(randomColor, 1, 100, 85, 38);
@@ -74,16 +36,6 @@ function randomCircleCoordinates(circleR, circleStartX, circleStartY) {
   ];
 }
 
-function drawCircleContainer(fruitCoordinates) {
-  brush.noStroke();
-  brush.beginShape(1);
-  brush.vertex(fruitCoordinates[0], fruitCoordinates[1]);
-  brush.vertex(fruitCoordinates[2], fruitCoordinates[3]);
-  brush.vertex(fruitCoordinates[4], fruitCoordinates[5]);
-  brush.vertex(fruitCoordinates[6], fruitCoordinates[7]);
-  brush.endShape(CLOSE);
-}
-
 function setHatchFill(shapeSize, lightRGB, darkRGB) {
   const randomColor = random(1, 100);
 
@@ -116,3 +68,14 @@ function setHatchTexture(shapeSize, lightRGB, darkRGB) {
     gradient: 0.4,
   });
 }
+
+function drawCircleContainer(fruitCoordinates) {
+  brush.noStroke();
+  brush.beginShape(1);
+  brush.vertex(fruitCoordinates[0], fruitCoordinates[1]);
+  brush.vertex(fruitCoordinates[2], fruitCoordinates[3]);
+  brush.vertex(fruitCoordinates[4], fruitCoordinates[5]);
+  brush.vertex(fruitCoordinates[6], fruitCoordinates[7]);
+  brush.endShape(CLOSE);
+}
+

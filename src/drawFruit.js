@@ -4,9 +4,9 @@ function drawFruit(fruitR, fruitStartX, fruitStartY) {
     const colorSet =
       stage > 25
         ? { darkest: "#19011B", lightest: "#490720" }
-        : stage > 12
-        ? { darkest: "#39230F", lightest: "#432A16" }
-        : { darkest: "#19310A", lightest: "#26680C" };
+        : stage > 10
+        ? { darkest: "#19310A", lightest: "#26680C" }
+        : { darkest: "#39230F", lightest: "#432A16" };
   
     const fruitDarkestFillColorRGB = hexToRgbCached(colorSet.darkest);
     const fruitLightestFillColorRGB = hexToRgbCached(colorSet.lightest);

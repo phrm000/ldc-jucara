@@ -39,7 +39,7 @@ function draw() {
 
   translate(-width / 2, -height / 2);
   const fruitRadius = (fruitRadiusSlider.value / 400) * height;
-  const startX = 0 - fruitRadius * 2 + width * 0.05;
+  const startX = 0 - fruitRadius * 2 ;
   const startY = 0 - fruitRadius;
   const curveHeight = height;
   const curveWidth = width / 3;
