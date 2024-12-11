@@ -1,19 +1,13 @@
-# Project Name
+# Invisible Roots and Heritage of the Juçara Palm: A Generative Identity
 
-A brief description of your project goes here.
+This is the proof of the concept of a generative identity representing the journey of the Euterpe edulis from its perspective within Atlantic Rainforest. From its growth to its interactions with nature and humanity, emphasizing its  role within the ecosystem as well as its cultural and economic significance to the community. Heavily based on the [brush.p5 library](https://github.com/acamposuribe/p5.brush).
 
-A `README` file should contain only the information necessary for developers to start using and contributing to your project. Longer documentation is better suited to [wikis](https://github.com/sergiomrebelo/ldc-repository-example/wiki).
+The style is based on the current [Invest Paraná VRS](https://vrs.org.br/) art style and scaled to a generative capacity for local artisans to create custom packaging and cards for their products, adding value to their products.
 
 ## Table of Contents
 
-🤔 **Optional**
-
-If your `README` is very long, consider incorporating a table of contents to facilitate navigation for users.
-
-- [Project Name](#project-name)
+- [Invisible Roots and Heritage of the Juçara Palm: A Generative Identity](#project-name)
     - [Table of Contents](#table-of-contents)
-    - [About](#about)
-        - [RoadMap](#roadmap)
     - [Getting Started](#getting-started)
         - [Prerequisites](#prerequisites)
         - [Installation](#installation)
@@ -24,73 +18,56 @@ If your `README` is very long, consider incorporating a table of contents to fac
     - [License](#license)
     - [Credits](#credits)
 
-## About
-
-🤔 **Optional**
-
-More detailed overview of your project. Explain what it does, the motivation, and any relevant background information. 
-
-If necessary, you can briefly mention the current [milestone](https://github.com/sergiomrebelo/ldc-repository-example/milestones) and its significance.
-
-![example placedholder image](res/placeholder.png)
-
-### RoadMap
-
-🤔 **Optional** (Highly recommended if the project is in development)
-
-- [Repository Definition](https://github.com/sergiomrebelo/ldc-repository-example/milestone/1): To establish the repository structure and set the foundation for organised collaboration.
-- [Define the Project](https://github.com/sergiomrebelo/ldc-repository-example/milestone/2): To define and outline the project's objectives, scope, and overall plan.
-- [Milestone 3](): Description of the milestone
-
-Milestones must have [issues](https://github.com/sergiomrebelo/ldc-repository-example/issues) associated.
-
-
 ## Getting Started
 
 ### Prerequisites
 
-If necessary, list any prerequisites or requirements that users need to install your project. Include links and instructions.
+As mentioned this project is heavily based on the [brush.p5 library](https://github.com/acamposuribe/p5.brush). So to run it the project already has in its folders both p5.js and p5.brush that you may access by using the links below:
 
-- Prerequisite 1
-- Prerequisite 2
+- Prerequisite 1: The 1.11 [p5.js](https://p5js.org/download/). version or higher imported at:
+```
+    <script src="js/p5.min.js"></script>
+```
+
+- Prerequisite 2: The [brush.p5 library](https://github.com/acamposuribe/p5.brush). Installed at
+```
+    <script src="js/p5.brush.js"></script>
+``` 
 
 ### Installation
 
-Provide step-by-step instructions on how to install and set up your project.
+To run the project a live server is needed - to do that follow the steps
 
-1. Step 1
-2. Step 2
-3. Step 3
+1. Download https://nodejs.org/en if not already installed on your machine
+2. Run ```npm install -g http-server``` to install HTTP server globally
+3. Navigate to the ```/src``` folder, where the ```index.html``` is installed
+4. Start the server using the command ```http-server```
+5. Access the project using your localhost port like ```http://localhost:8080```
+
+Alternatively, you might want to use any IDE to run the code using plugins like [Live Server for VS Code](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
 
 
 ## Usage
 
-Explain how to use your project. 
-Provide instruction, code examples, screenshots, or any other relevant information that can help users/contributors use the project.
+No extra permission or authentification is needed to access or use the project after its launch you can test all of the control panels at the left of your screen and see the results on the right side just like in the video demo below:
 
-Also if your project will require authentication like API keys, passwords, or usernames, this is the place to explain that.
 
-### Environment Variables
-Many projects utilise a `.env` file (or similar) to manage environment variables. 
-The `.env` file contains sensitive information and configuration settings that are specific to your local environment. 
-The `.env` file should not be included in the repository. You can begin by copying and modifying the [.env.example](.env.example) file.
 
-> ⚠️ 🔑
-> Do not include personal access tokens or passwords in the project. This information must be stored in an external file (_e.g. .env file) and not stored in the repository.
-If necessary, make available code instructions on how to run the project.
+> Heads up: When hovering over inputs the draw function is paused, which means that your drawing will only work after you have made the changes and left that area with your mouse
 
-If necessary, made available code instruction of how to run the project.
-```bash
-$ your-command --options
-```
+
+
+After you are done creating your artwork proceed to right-click above the canvas to save its image
+
+> On future releases a button for those operations is planned, please continue with the instructions above for the current state of the project
 
 ## Code of Conduct
-A code of conduct is a document that establishes expectations for the behaviour of your project’s contributors. The text is usually stored in the CODE_OF_CONDUCT file at the root of the project. For more information read this page.
+A code of conduct is a document that establishes expectations for the behavior of your project’s contributors. The text is usually stored in the CODE_OF_CONDUCT file at the project's root, for more information read this page.
 
 > We expect everyone participating in our project to follow a Code of Conduct. Please read it [here](CODE_OF_CONDUCT.md).
 
 ## Contributing
-Let others know how they can contribute to your project. Include guidelines for reporting issues, making pull requests, and any coding standards you want contributors to follow.
+We welcome contributions from the community. If you find a bug or have a feature request, please open an issue on Github. For additional help please contact me at phrm000@gmail.com
 
 ## Additional Information
 For further details on this example repository and to enhance your understanding of its layout and GitHub features, please check out the following documents:
@@ -98,10 +75,7 @@ For further details on this example repository and to enhance your understanding
 - [GitHub Repository Features Overview](features.md): A overview of the key GitHub features utilised in this repository to enhance collaboration, streamline documentation, and improve project management. 
 
 ## License
-A short description of the license. If you want to share your work with others, please consider choosing an open-source license ([MIT](https://opensource.org/license/mit/), [Apache](https://www.apache.org/licenses/LICENSE-2.0), [GNU](https://www.gnu.org/licenses/gpl-3.0.html), etc.)
-The text of a license is usually stored in the `LICENSE` file at the root of the project.
-
-> This project is licensed under the `[License Name]` - see the [LICENSE](LICENSE) file for details.
+This project is released under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Credits
 Let others know who help and support the project. It can include libraries, previous works, support of other individuals, _etc._
