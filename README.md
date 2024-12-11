@@ -55,17 +55,15 @@ No extra permission or authentification is needed to access or use the project a
 
 ![Demo](/res/Demo.gif)
 
-
 > Heads up: When hovering over inputs the draw function is paused, which means that your drawing will only work after you have made the changes and left that area with your mouse
 
-After you are done creating your artwork proceed to right-click above the canvas to save its image. It will look like this:
+After creating your artwork right-click above the canvas to save its image. It will look like this:
 
 ![Example](/res/Image_example.png)
 
 > On future releases a button for those operations is planned, please continue with the instructions above for the current state of the project
 
 ## Code of Conduct
-A code of conduct is a document that establishes expectations for the behavior of your project’s contributors. The text is usually stored in the CODE_OF_CONDUCT file at the project's root, for more information read this page.
 
 > We expect everyone participating in our project to follow a Code of Conduct. Please read it [here](CODE_OF_CONDUCT.md).
 
@@ -81,9 +79,14 @@ For further details on this example repository and to enhance your understanding
 This project is released under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Credits
-Let others know who help and support the project. It can include libraries, previous works, support of other individuals, _etc._
+This project would not be possible without the amazing work at the [brush.p5 library](https://github.com/acamposuribe/p5.brush) - with amazing guides and documentation around it done by [Alejandro Campos](https://github.com/acamposuribe)
 
-Do not forget to mention that this project is developed in the context of a university course in the MSc of Design and Multimedia of the University of Coimbra.
+Acknowledgments to the professors who helped mentor this project for the lecture of Computational Design Laboratory in Design and Multimedia of the University of Coimbra:
+- [João Miguel Cunha](https://cdv.dei.uc.pt/people/joao-cunha)
+- [Sérgio M. Rebelo](https://cdv.dei.uc.pt/people/sergio-rebelo)
+- [Tiago Martins](https://cdv.dei.uc.pt/people/tiago-martins)
+
+Also, a special thanks to Professor [Ken Flávio Ono Fonseca](http://lattes.cnpq.br/5467180980495358) who helped guide the initial concepts and scope of this project
 
 ### Contributors
 
