@@ -73,16 +73,12 @@ function drawComponent(radius, x, y) {
 
   if (componentSelection >= 33) {
     drawFruit(radius, x, y);
-    playAudio("fruit"); // Play audio for a fruit
   } else if (componentSelection >= 22) {
-    drawPerson(radius, x, y)
-    playAudio("person"); // Play audio for a person
+    drawPerson(radius, x, y);
   } else if (componentSelection >= 11) {
     drawTucano(radius, x, y);
-    playAudio("tucano"); // Play audio for a tucano
   } else {
     drawGralha(radius, x, y);
-    playAudio("gralha"); // Play audio for a gralha
   }
 }
 
